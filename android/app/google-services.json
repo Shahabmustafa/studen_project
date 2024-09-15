@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "948146212552",
+    "project_id": "local-service-finder-24fe3",
+    "storage_bucket": "local-service-finder-24fe3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:948146212552:android:1d7ce89d04bb5c4d725ffd",
+        "android_client_info": {
+          "package_name": "com.example.local_service_finder"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBZmazUt3G-38TL3R-MdExnK4i3jSS0gWI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
