@@ -29,23 +29,38 @@ class _ProfileScreenState extends State<ProfileScreen> {
   final ProfileUpdateViewModel profileUpdateViewModel =
   ProfileUpdateViewModel();
   List? ratingValue;
-  void callRatingMethods () async {
-    ratingValue = await profileUpdateViewModel.calculateAverageRating(FirebaseAuth.instance.currentUser!.uid);
-    setState(() {});
-  }
-
   final name = TextEditingController();
   final about = TextEditingController();
 
+
+// Updated callRatingMethods
+  void callRatingMethods() async {
+    ratingValue = await profileUpdateViewModel.calculateAverageRating(FirebaseAuth.instance.currentUser!.uid);
+    setState(() {}); // Update UI after getting the rating
+  }
+
+// Method to parse rating value
   double _parseRatingValue() {
     if (ratingValue != null && ratingValue!.isNotEmpty) {
       try {
-        return double.parse(ratingValue![0].toString());
+        return double.parse(ratingValue![0].toString()); // Fetch average rating value
       } catch (e) {
         return 0.0; // Default value if parsing fails
       }
     }
-    return 0.0; // Default value if ratingValue is null or empty
+    return 0.0; // Default value if no rating available
+  }
+
+// Method to parse the number of reviews
+  int _parseReviewCount() {
+    if (ratingValue != null && ratingValue!.isNotEmpty) {
+      try {
+        return int.parse(ratingValue![1].toString()); // Fetch review count
+      } catch (e) {
+        return 0; // Default value if parsing fails
+      }
+    }
+    return 0; // Default value if no reviews available
   }
   @override
   void initState() {
@@ -195,15 +210,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       },
                     ),
                     Text(
-                      ratingValue == null
-                          ? "..."
-                          : ratingValue!.isEmpty
-                          ? 'Not Rated yet'
-                          : "${ratingValue![1].toString()} Peoples rated this Service",
-                      style: GoogleFonts.poppins(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w600,
-                      ),
+                      '${_parseRatingValue().toStringAsFixed(1)}/5 (${_parseReviewCount()} reviews)',
+                      style: TextStyle(fontSize: 16,fontWeight: FontWeight.w600),
                     ),
                   ],
                 ),
@@ -222,7 +230,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             title: Text(
                               "About me",
                               style: GoogleFonts.poppins(
-                                fontSize: 16,
+                                fontSize: 12,
                                 fontWeight: FontWeight.w600,
                               ),
                             ),
@@ -243,14 +251,54 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             title: Text(
                               "Email",
                               style: GoogleFonts.poppins(
-                                fontSize: 15,
+                                fontSize: 12,
                                 fontWeight: FontWeight.w600,
                               ),
                             ),
                             trailing: Text(
                               data["email"],
                               style: GoogleFonts.poppins(
-                                fontSize: 14,
+                                fontSize: 12,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ),
+                        ),
+
+                        Card(
+                          elevation: 5,
+                          child: ListTile(
+                            title: Text(
+                              "Phone",
+                              style: GoogleFonts.poppins(
+                                fontSize: 12,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                            trailing: Text(
+                              data["phoneNumber"],
+                              style: GoogleFonts.poppins(
+                                fontSize: 12,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ),
+                        ),
+
+                        Card(
+                          elevation: 5,
+                          child: ListTile(
+                            title: Text(
+                              "CNIC",
+                              style: GoogleFonts.poppins(
+                                fontSize: 12,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                            trailing: Text(
+                              data["cnicNumber"],
+                              style: GoogleFonts.poppins(
+                                fontSize: 12,
                                 fontWeight: FontWeight.w600,
                               ),
                             ),
@@ -264,14 +312,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             title: Text(
                               "Services",
                               style: GoogleFonts.poppins(
-                                fontSize: 16,
+                                fontSize: 12,
                                 fontWeight: FontWeight.w600,
                               ),
                             ),
                             trailing: Text(
                               data["selectService"].toString(),
                               style: GoogleFonts.poppins(
-                                fontSize: 16,
+                                fontSize: 12,
                                 fontWeight: FontWeight.w600,
                               ),
                             ),
@@ -285,14 +333,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             title: Text(
                               "Location",
                               style: GoogleFonts.poppins(
-                                fontSize: 16,
+                                fontSize: 12,
                                 fontWeight: FontWeight.w600,
                               ),
                             ),
                             trailing: Text(
                               data["location"],
                               style: GoogleFonts.poppins(
-                                fontSize: 16,
+                                fontSize: 12,
                                 fontWeight: FontWeight.w600,
                               ),
                             ),
@@ -305,14 +353,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             title: Text(
                               "likes",
                               style: GoogleFonts.poppins(
-                                fontSize: 16,
+                                fontSize: 12,
                                 fontWeight: FontWeight.w600,
                               ),
                             ),
                             trailing: Text(
                               data["likes"].length.toString(),
                               style: GoogleFonts.poppins(
-                                fontSize: 15,
+                                fontSize: 12,
                                 fontWeight: FontWeight.w600,
                               ),
                             ),
@@ -324,14 +372,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             title: Text(
                               "Profile view",
                               style: GoogleFonts.poppins(
-                                fontSize: 16,
+                                fontSize: 12,
                                 fontWeight: FontWeight.w600,
                               ),
                             ),
                             trailing: Text(
                               data["messageList"].length.toString(),
                               style: GoogleFonts.poppins(
-                                fontSize: 15,
+                                fontSize: 12,
                                 fontWeight: FontWeight.w600,
                               ),
                             ),
@@ -346,7 +394,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             title: Text(
                               "Convert To Customer",
                               style: GoogleFonts.poppins(
-                                fontSize: 15,
+                                fontSize: 12,
                                 fontWeight: FontWeight.w600,
                               ),
                             ),

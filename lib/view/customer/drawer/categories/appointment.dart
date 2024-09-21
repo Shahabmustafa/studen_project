@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:local_service_finder/common/button/custom_button.dart';
 import 'package:local_service_finder/utils/constant/colors.dart';
 import 'package:local_service_finder/viewmodel/appotiment/appotiment_view_model.dart';

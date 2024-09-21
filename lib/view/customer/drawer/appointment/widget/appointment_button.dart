@@ -1,11 +1,8 @@
-import 'dart:async';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:intl/intl.dart';
 
 import '../../../../../utils/constant/colors.dart';
 import '../../../../../viewmodel/appotiment/appotiment_view_model.dart';
@@ -24,6 +21,7 @@ class AppointmentButton extends StatefulWidget {
     this.placeDate,
     this.appointmentId,
     this.onDelete,
+    this.bgColor,
     super.key,
   });
   String days;
@@ -38,6 +36,7 @@ class AppointmentButton extends StatefulWidget {
   final String? placeDate;
   final String? appointmentId;
   VoidCallback? onDelete;
+  Color? bgColor;
 
   @override
   State<AppointmentButton> createState() => _AppointmentButtonState();
@@ -69,7 +68,7 @@ class _AppointmentButtonState extends State<AppointmentButton> {
             child: GestureDetector(
               onTap: (){
                 widget.pendingAppointement == false ?
-                widget.isCustomer == true ? AppotimentViewModel().ratingBarAlert(context, widget.userId.toString()) : SizedBox() :
+                widget.isCustomer == true ? AppotimentViewModel().ratingBarAlert(context, widget.userId.toString(),widget.appointmentId.toString()) : SizedBox() :
                 SizedBox();
               },
               child: Card(
@@ -77,6 +76,7 @@ class _AppointmentButtonState extends State<AppointmentButton> {
                   width: double.infinity,
                   padding: const EdgeInsets.all(10),
                   decoration: BoxDecoration(
+                    color: widget.bgColor,
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: Column(

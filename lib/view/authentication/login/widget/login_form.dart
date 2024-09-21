@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:local_service_finder/utils/helper/helper.dart';
 import 'package:local_service_finder/utils/validation/validation.dart';
 import 'package:local_service_finder/viewmodel/authentication/authentication_viewmodel.dart';
 import 'package:provider/provider.dart';

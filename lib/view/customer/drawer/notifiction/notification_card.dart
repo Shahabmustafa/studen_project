@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:local_service_finder/utils/constant/colors.dart';
 import 'package:intl/intl.dart'; // Add this import for date formatting
+import 'package:local_service_finder/utils/constant/colors.dart';
 
 class NotificationCardScreen extends StatelessWidget {
   final String senderOrReciverId;

@@ -1,15 +1,14 @@
 import 'dart:async';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:custom_info_window/custom_info_window.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:local_service_finder/common/drawer/dawer.dart';
 import 'package:local_service_finder/utils/constant/colors.dart';
 
-import '../../../../viewmodel/cureent_location_viewmodel.dart';
 import '../categories/categories_seller_profile.dart';
 
 class MapScreen extends StatefulWidget {
@@ -123,7 +122,7 @@ class _MapScreenState extends State<MapScreen> with WidgetsBindingObserver {
                 32.968600,
                 70.630035,
               ),
-              zoom: 4,
+              zoom: 6,
             ),
             zoomControlsEnabled: true,
             zoomGesturesEnabled: true,

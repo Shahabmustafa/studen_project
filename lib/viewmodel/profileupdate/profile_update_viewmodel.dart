@@ -49,27 +49,28 @@ class ProfileUpdateViewModel extends ChangeNotifier {
   /// calculate rating for stars
   Future<List?> calculateAverageRating(String userId) async {
     List<double> ratings = [];
-    ratings.clear();
     try {
-      var ratingStars = await FirebaseFirestore.instance
-          .collection('users')
-          .doc(userId)
+      // Get the specific ratings collection inside the appointmentId documents
+      var specificRatings = await FirebaseFirestore.instance
           .collection('ratings')
+          .doc(userId)
+          .collection('specificRating')
           .get()
           .then((value) {
-        value.docs.forEach((ratingsValues) {
-          ratings.add(ratingsValues['rating value']);
+        value.docs.forEach((ratingDoc) {
+          ratings.add(ratingDoc['rating value']); // Extract the rating value
         });
       });
 
-      double sum = ratings.reduce((a, b) => a + b);
-      double ratingReviewsValue = sum / ratings.length;
-      print(ratingReviewsValue);
-      return [ratingReviewsValue , ratings.length];
-
+      if (ratings.isNotEmpty) {
+        double sum = ratings.reduce((a, b) => a + b);
+        double averageRating = sum / ratings.length;
+        print(averageRating);
+        return [averageRating, ratings.length]; // Return average and count
+      }
     } catch (error) {
-      print("error while calculating reviews stars $error");
+      print("Error while calculating review stars: $error");
     }
-    return [];
+    return [0.0, 0]; // Return default if no ratings found
   }
 }

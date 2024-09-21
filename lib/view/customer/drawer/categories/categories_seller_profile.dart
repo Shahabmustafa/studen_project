@@ -33,15 +33,28 @@ class _CategoriesSellerProfileState extends State<CategoriesSellerProfile> {
     callRatingMethods();
   }
 
+// Method to parse rating value
   double _parseRatingValue() {
     if (ratingValue != null && ratingValue!.isNotEmpty) {
       try {
-        return double.parse(ratingValue![0].toString());
+        return double.parse(ratingValue![0].toString()); // Fetch average rating value
       } catch (e) {
         return 0.0; // Default value if parsing fails
       }
     }
-    return 0.0; // Default value if ratingValue is null or empty
+    return 0.0; // Default value if no rating available
+  }
+
+// Method to parse the number of reviews
+  int _parseReviewCount() {
+    if (ratingValue != null && ratingValue!.isNotEmpty) {
+      try {
+        return int.parse(ratingValue![1].toString()); // Fetch review count
+      } catch (e) {
+        return 0; // Default value if parsing fails
+      }
+    }
+    return 0; // Default value if no reviews available
   }
 
   @override
@@ -74,8 +87,8 @@ class _CategoriesSellerProfileState extends State<CategoriesSellerProfile> {
                                     ClipRRect(
                                       borderRadius: BorderRadius.circular(100),
                                       child: CachedNetworkImage(
-                                        height: 100,
-                                        width: 100,
+                                        height: 120,
+                                        width: 120,
                                         fit: BoxFit.cover,
                                         imageUrl: data["profileImage"],
                                         placeholder: (context, url) => Center(
@@ -86,12 +99,16 @@ class _CategoriesSellerProfileState extends State<CategoriesSellerProfile> {
                                         const Icon(Icons.error),
                                       ),
                                     ),
-                                    Container(
-                                      height: 15,
-                                      width: 15,
-                                      decoration: BoxDecoration(
-                                        color: data["status"] ? TColors.green : TColors.gray,
-                                        borderRadius: BorderRadius.circular(100),
+                                    Positioned(
+                                      bottom: 10,
+                                      right: 10,
+                                      child: Container(
+                                        height: 15,
+                                        width: 15,
+                                        decoration: BoxDecoration(
+                                          color: data["status"] ? TColors.green : TColors.gray,
+                                          borderRadius: BorderRadius.circular(100),
+                                        ),
                                       ),
                                     ),
                                   ],
@@ -135,15 +152,8 @@ class _CategoriesSellerProfileState extends State<CategoriesSellerProfile> {
                             },
                           ),
                           Text(
-                            ratingValue == null
-                                ? "..."
-                                : ratingValue!.isEmpty
-                                ? 'Not Rated yet'
-                                : "${ratingValue![1].toString()} Peoples rated this Service",
-                            style: GoogleFonts.poppins(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w600,
-                            ),
+                            '${_parseRatingValue().toStringAsFixed(1)}/5 (${_parseReviewCount()} reviews)',
+                            style: TextStyle(fontSize: 16,fontWeight: FontWeight.w600),
                           ),
                           Card(
                             elevation: 5,

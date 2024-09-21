@@ -1,16 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:local_service_finder/view/customer/drawer/appointment/accept_appointment.dart';
 
-import '../../../../viewmodel/cureent_location_viewmodel.dart';
 import '../../../customer/drawer/appointment/pending_appointement.dart';
-import '../../../customer/drawer/home/map.dart';
 
 class HomeScreen extends StatefulWidget {
-  HomeScreen({this.initialIndex = 0,super.key});
+  HomeScreen({this.appotimentId,this.initialIndex = 0,super.key});
   final int initialIndex;
+  String? appotimentId;
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -61,10 +59,10 @@ class _HomeScreenState extends State<HomeScreen>  with WidgetsBindingObserver{
             ],
           ),
         ),
-        body: const TabBarView(
+        body: TabBarView(
           children: [
-            AcceptAppointment(),
-            PendingAppointment(),
+            AcceptAppointment(appotimentId: widget.appotimentId,),
+            PendingAppointment(appotimentId: widget.appotimentId,),
           ],
         ),
       ),

@@ -91,7 +91,7 @@ class _UpdateSellerProfileState extends State<UpdateSellerProfile> {
                       controller: phoneNumber,
                       keyboardType: TextInputType.phone,
                       validator: (value){
-                        return TValidator.validatePhoneNumber(value);
+                        return phoneNumber.text.isEmpty ? "Please Enter Your Phone Number" : phoneNumber.text.length < 13 ? "Add 11 Digits" : null;
                       },
                       decoration: const InputDecoration(
                         hintText: "Phone Number",
@@ -106,7 +106,7 @@ class _UpdateSellerProfileState extends State<UpdateSellerProfile> {
                         hintText: "CNIC-Number",
                       ),
                       validator: (value){
-                        return cnicNumber.text.isEmpty ? "Please Enter Your CNIC" : null;
+                        return cnicNumber.text.isEmpty ? "Please Enter Your CNIC" : cnicNumber.text.length < 13 ? "Add 13 Digits" : null;
                       },
                     ),
                     const SizedBox(
@@ -124,51 +124,13 @@ class _UpdateSellerProfileState extends State<UpdateSellerProfile> {
                         helperText: "How many year experience on this field",
                       ),
                       validator: (value){
-                        return cnicNumber.text.isEmpty ? "Please Enter Your Experience" : null;
+                        return experience.text.isEmpty ? "Please Enter Your Experience" : null;
                       },
                       maxLength: 2,
                     ),
                     const SizedBox(
                       height: 10,
                     ),
-                    // CustomMultiSelectDropDown(
-                    //   hint: "Day Schedule",
-                    //   dropdownHeight: 320,
-                    //   onOptionSelected: (options){
-                    //     // daySchedule.add(options.toString());
-                    //     // print(options);
-                    //     daySchedule = options;
-                    //   },
-                    //   options: const <ValueItem>[
-                    //     ValueItem(label: 'Monday', value: '1'),
-                    //     ValueItem(label: 'Tuesday', value: '2'),
-                    //     ValueItem(label: 'Wednesday', value: '3'),
-                    //     ValueItem(label: 'Thursday', value: '4'),
-                    //     ValueItem(label: 'Friday', value: '5'),
-                    //     ValueItem(label: 'Saturday', value: '6'),
-                    //     ValueItem(label: 'Sunday', value: '7'),
-                    //   ],
-                    //   disabledOptions: [],
-                    //   maxItems: 7,
-                    //
-                    // ),
-                    // const SizedBox(
-                    //   height: 10,
-                    // ),
-                    // CustomMultiSelectDropDown(
-                    //   hint: "Time Schedule",
-                    //   maxItems: 3,
-                    //   disabledOptions: [],
-                    //   dropdownHeight: 200,
-                    //   onOptionSelected: (options){
-                    //     timeSchedule = options;
-                    //   },
-                    //   options: const <ValueItem>[
-                    //     ValueItem(label: '9:00 AM to 5:00 PM', value: '1'),
-                    //     ValueItem(label: '1:00 AM to 7:00 PM', value: '2'),
-                    //     ValueItem(label: '11:00 AM to 3:00 PM', value: '3'),
-                    //   ],
-                    // ),
                     const SizedBox(
                       height: 10,
                     ),
@@ -194,9 +156,7 @@ class _UpdateSellerProfileState extends State<UpdateSellerProfile> {
                           loading: controller.loading,
                           height: 60,
                           onTap: (){
-                            if(selectService == null && phoneNumber.text.isEmpty && cnicNumber.text.isEmpty && experience.text.isEmpty && about.text.isEmpty){
-                              THelper.errorMessage(context, "Please Fill All TextField & DropDown");
-                            }else{
+                            if(key.currentState!.validate()){
                               provider.loadingIndicator(true);
                               FirebaseFirestore.instance.
                               collection("users").

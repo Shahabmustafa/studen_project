@@ -1,32 +1,59 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:local_service_finder/view/seller/bottomnavogatorbar/chat/chat_users_list_screen.dart';
 import 'package:local_service_finder/view/seller/bottomnavogatorbar/profile/profile_screen.dart';
+
 import '../../view/customer/drawer/notifiction/customer_notification_screen.dart';
 import '../../view/seller/bottomnavogatorbar/home/home_screen.dart';
 
 class BottomNavigatorBarScreen extends StatefulWidget {
-  const BottomNavigatorBarScreen({super.key});
-
+  final int initialIndex;
+  final String? appotimentId;
+  const BottomNavigatorBarScreen({super.key, this.initialIndex = 0,this.appotimentId});
   @override
   State<BottomNavigatorBarScreen> createState() => _BottomNavigatorBarScreenState();
 }
 
 class _BottomNavigatorBarScreenState extends State<BottomNavigatorBarScreen> {
 
-  final List screens = [
-    HomeScreen(),
-    ChatUsersListScreen(),
-    NotificationScreen(),
-    ProfileScreen()
-  ];
 
   int selectedIndex = 0;
 
   @override
+  void initState() {
+    super.initState();
+    _getUnreadNotificationCount();
+  }
+
+  int unreadCount = 0;
+
+  // Fetch the unread appointment count from Firestore
+  void _getUnreadNotificationCount() {
+    FirebaseFirestore.instance
+        .collection('users')
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .collection('appotiment')
+        .where('isRead', isEqualTo: false)
+        .snapshots()
+        .listen((snapshot) {
+      setState(() {
+        unreadCount = snapshot.docs.length;
+      });
+    });
+  }
   Widget build(BuildContext context) {
     return Scaffold(
 
-      body: screens[selectedIndex],
+      body: IndexedStack(
+        index: selectedIndex,
+        children: [
+          HomeScreen(appotimentId: widget.appotimentId,initialIndex: widget.initialIndex,),
+          const ChatUsersListScreen(),
+          const NotificationScreen(),
+          ProfileScreen(),
+        ],
+      ),
 
       bottomNavigationBar: BottomNavigationBar(
         onTap: (index) {
@@ -41,7 +68,37 @@ class _BottomNavigatorBarScreenState extends State<BottomNavigatorBarScreen> {
         items: [
           BottomNavigationBarItem(icon: Icon(Icons.home),label: 'Home'),
           BottomNavigationBarItem(icon: Icon(Icons.chat),label: 'Chat'),
-          BottomNavigationBarItem(icon: Icon(Icons.notifications),label: 'Notification'),
+          BottomNavigationBarItem(
+            icon: Stack(
+              children: [
+                Icon(Icons.notifications),
+                if (unreadCount > 0)
+                  Positioned(
+                    right: 0,
+                    child: Container(
+                      padding: EdgeInsets.all(1),
+                      decoration: BoxDecoration(
+                        color: Colors.red,
+                        borderRadius: BorderRadius.circular(6),
+                      ),
+                      constraints: BoxConstraints(
+                        minWidth: 12,
+                        minHeight: 12,
+                      ),
+                      child: Text(
+                        '$unreadCount',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 8,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ),
+              ],
+            ),
+            label: 'Notification',
+          ),
           BottomNavigationBarItem(icon: Icon(Icons.account_circle),label: 'Profile'),
         ],
       ),

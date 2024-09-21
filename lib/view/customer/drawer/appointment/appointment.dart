@@ -4,8 +4,8 @@ import 'package:local_service_finder/view/customer/drawer/appointment/accept_app
 import 'package:local_service_finder/view/customer/drawer/appointment/pending_appointement.dart';
 
 class AppointmentScreen extends StatefulWidget {
-  const AppointmentScreen({super.key});
-
+  AppointmentScreen({this.appotimentId,super.key});
+  String? appotimentId;
   @override
   State<AppointmentScreen> createState() => _AppointmentScreenState();
 }
@@ -30,10 +30,10 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
           ),
         ),
         drawer: DrawerScreen(),
-        body: const TabBarView(
+        body: TabBarView(
           children: [
-            AcceptAppointment(),
-            PendingAppointment(),
+            AcceptAppointment(appotimentId: widget.appotimentId,),
+            PendingAppointment(appotimentId: widget.appotimentId,),
           ],
         ),
       ),

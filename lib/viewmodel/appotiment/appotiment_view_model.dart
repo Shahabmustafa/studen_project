@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:local_service_finder/utils/api/firebase/firebase_api.dart';
@@ -20,11 +19,12 @@ class AppotimentViewModel {
       ) async {
     try {
       /// first save in seller account and then in sender account.
-
+      var appointmentId =  FirebaseFirestore.instance.collection("users").doc(FirebaseAuth.instance.currentUser!.uid).collection('appotiment').doc();
       await TFirebaseApi.user
           .doc(appotimentReciverId)
           .collection('appotiment')
           .add({
+        'appotimentId' : appointmentId.id,
         "senderId": FirebaseAuth.instance.currentUser!.uid,
         "appotimentDate": appotimentDate,
         "appotimentMessage": appotimentMessage,
@@ -45,12 +45,12 @@ class AppotimentViewModel {
         THelper.successMessage(context, "Appotimet placed successfully :)");
         FirebaseFirestore.instance.collection('users').doc(appotimentReciverId).collection('ratings').get().then((value) {
 
-          bool docExists = value.docs.any((doc) => doc.id == _auth.currentUser!.uid);
-          if(docExists){
-            Navigator.pop(context);
-          }else{
-            ratingBarAlert(context,appotimentReciverId);
-          }
+        //   bool docExists = value.docs.any((doc) => doc.id == _auth.currentUser!.uid);
+        //   if(docExists){
+        //     Navigator.pop(context);
+        //   }else{
+        //     ratingBarAlert(context,appotimentReciverId);
+        //   }
         });
       });
     } catch (error) {
@@ -93,7 +93,7 @@ class AppotimentViewModel {
 
 
   /// rating bar alert method
-  Future ratingBarAlert(BuildContext context,String sellerId) async {
+  Future ratingBarAlert(BuildContext context,String sellerId,String appointmentId) async {
     double raatingValue = 1.5;
     return showDialog(context: context,
         builder: (BuildContext context) {
@@ -116,7 +116,7 @@ class AppotimentViewModel {
                 children: [
                   TextButton(
                     onPressed: (){
-                      saveCustomerRating(context, sellerId, raatingValue);
+                      Navigator.pop(context);
                     },
                     child: Text("Not Now",style: TextStyle(color: Colors.white),),
                     style: TextButton.styleFrom(
@@ -128,7 +128,7 @@ class AppotimentViewModel {
                   ),
                   TextButton(
                     onPressed: (){
-                      saveCustomerRating(context, sellerId, raatingValue);
+                      saveCustomerRating(context, sellerId, raatingValue,appointmentId);
                     },
                     child: Text("Submit",style: TextStyle(color: Colors.white),),
                     style: TextButton.styleFrom(
@@ -146,19 +146,34 @@ class AppotimentViewModel {
   }
 
   /// save customer rating
-  Future<void> saveCustomerRating(BuildContext context, String sellerId , double ratingValue) async {
-    try{
-      FirebaseFirestore.instance.collection('users').doc(sellerId).collection('ratings').doc(FirebaseAuth.instance.currentUser!.uid.toString()).set({
-        "rating value": ratingValue,
-        "date": DateTime.now(),
-      }).then((value) {
+  Future<void> saveCustomerRating(BuildContext context, String sellerId , double ratingValue,String appointmentId) async {
+    try {
+      // Reference to the current user's rating document
+      DocumentReference ratingDoc = FirebaseFirestore.instance
+          .collection('ratings')
+          .doc(sellerId)
+          .collection('specificRating')
+          .doc(appointmentId);
+
+      // Check if the rating already exists
+      DocumentSnapshot ratingSnapshot = await ratingDoc.get();
+
+      if (ratingSnapshot.exists) {
+        // User has already rated this seller
+        THelper.errorMessage(context, "You have already rated this Appointment");
+      } else {
+        // Save the new rating since no previous rating exists
+        await ratingDoc.set({
+          "rating value": ratingValue,
+          "date": DateTime.now(),
+        });
+
         THelper.successMessage(context, "Rating is saved");
-        /// for navigating back
+        // Navigate back
         Navigator.pop(context);
-        Navigator.pop(context);
-      });
-    }catch(error){
-      print("Error while saving customer rting  $error");
+      }
+    } catch (error) {
+      print("Error while saving customer rating: $error");
     }
   }
 

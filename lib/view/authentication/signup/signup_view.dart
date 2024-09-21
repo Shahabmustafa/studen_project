@@ -37,6 +37,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
   ValueNotifier<bool> _obscurePassword = ValueNotifier<bool>(true);
   ValueNotifier<bool> _obscureConfirmPassword = ValueNotifier<bool>(true);
 
+  GlobalKey<FormState> _key = GlobalKey<FormState>();
+
 
 
   @override
@@ -77,6 +79,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 height: 50,
               ),
               Form(
+                key: _key,
                child: Column(
                  children: [
                    Row(
@@ -115,6 +118,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                    ),
                    TextFormField(
                      controller: email,
+                     validator: (value){
+                       return value!.isEmpty ? 'Please Enter Your Email' : null;
+                     },
                      decoration: InputDecoration(
                        hintText: "Email",
                        prefixIcon: const Icon(CupertinoIcons.mail),
@@ -212,18 +218,16 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     height: 60,
                     loading: tProvider.loading,
                     onTap: (){
-                      if(confirmPassword.text != password.text){
-                        THelper.errorMessage(context, "Your Confirm Password is Not equal");
-                      }else{
-                        tProvider.signUpAuth(
-                          context,
-                          "${firstName.text} ${lastName.text}",
-                          email.text,
-                          password.text,
-                          provider.type.toString(),
-                          provider.selectCity.toString(),
-                        );
-                      }
+                     if(_key.currentState!.validate()){
+                       tProvider.signUpAuth(
+                         context,
+                         "${firstName.text} ${lastName.text}",
+                         email.text,
+                         password.text,
+                         provider.type.toString(),
+                         provider.selectCity.toString(),
+                       );
+                     }
                     },
                   );
                 },

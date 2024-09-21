@@ -20,9 +20,39 @@ import 'package:provider/provider.dart';
 
 import '../../utils/constant/colors.dart';
 
-class DrawerScreen extends StatelessWidget {
+class DrawerScreen extends StatefulWidget {
   DrawerScreen({super.key});
+
+  @override
+  State<DrawerScreen> createState() => _DrawerScreenState();
+}
+
+class _DrawerScreenState extends State<DrawerScreen> {
   final changePassword = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    _getUnreadNotificationCount();
+  }
+
+  int unreadCount = 0;
+
+  // Fetch the unread appointment count from Firestore
+  void _getUnreadNotificationCount() {
+    FirebaseFirestore.instance
+        .collection('users')
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .collection('appotiment')
+        .where('isRead', isEqualTo: false)
+        .snapshots()
+        .listen((snapshot) {
+      setState(() {
+        unreadCount = snapshot.docs.length;
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -67,14 +97,22 @@ class DrawerScreen extends StatelessWidget {
                   leading: const Icon(Iconsax.home),
                   title: const Text("Home"),
                   onTap: (){
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => const MapScreen()));
+                    Navigator.pop(context);
+                    Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(builder: (context) => MapScreen()),
+                    );
+                    // Navigator.push(context, MaterialPageRoute(builder: (context) => const MapScreen()));
                   },
                 ),
                 ListTile(
                   leading: const Icon(Iconsax.category),
                   title: const Text("Categories"),
                   onTap: (){
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => CategoriesScreen()));
+                    // Navigator.push(context, MaterialPageRoute(builder: (context) => CategoriesScreen()));
+                    Navigator.pop(context);
+                    Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(builder: (context) => CategoriesScreen()),
+                    );
                   },
                 ),
                 ListTile(
@@ -88,13 +126,40 @@ class DrawerScreen extends StatelessWidget {
                   leading: const Icon(Iconsax.calendar),
                   title: const Text("Appointments"),
                   onTap: (){
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => const AppointmentScreen()));
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => AppointmentScreen()));
                   },
                 ),
                 ListTile(
-                  leading: const Icon(Iconsax.notification),
+                  leading: Stack(
+                    children: [
+                      const Icon(Iconsax.notification),  // Base notification icon
+                      if (unreadCount > 0)               // Show badge if there are unread notifications
+                        Positioned(
+                          right: 0,
+                          child: Container(
+                            padding: const EdgeInsets.all(1),
+                            decoration: BoxDecoration(
+                              color: Colors.red,
+                              borderRadius: BorderRadius.circular(6),
+                            ),
+                            constraints: const BoxConstraints(
+                              minWidth: 12,
+                              minHeight: 12,
+                            ),
+                            child: Text(
+                              '$unreadCount',
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 8,
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                        ),
+                    ],
+                  ),
                   title: const Text("Notification"),
-                  onTap: (){
+                  onTap: () {
                     Navigator.push(context, MaterialPageRoute(builder: (context) => const NotificationScreen()));
                   },
                 ),
@@ -138,7 +203,6 @@ class DrawerScreen extends StatelessWidget {
                                         children: [
                                           ElevatedButton(
                                             onPressed: (){
-                                              Navigator.pop(context);
                                               Navigator.pop(context);
                                             },
                                             child: Text("Cancel"),

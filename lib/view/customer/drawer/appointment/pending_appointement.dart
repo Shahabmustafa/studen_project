@@ -10,8 +10,8 @@ import '../../../../utils/api/firebase/firebase_api.dart';
 import '../../../../utils/constant/colors.dart';
 
 class PendingAppointment extends StatefulWidget {
-  const PendingAppointment({super.key});
-
+  PendingAppointment({this.appotimentId,super.key});
+  String? appotimentId;
   @override
   State<PendingAppointment> createState() => _PendingAppointmentState();
 }
@@ -23,7 +23,7 @@ class _PendingAppointmentState extends State<PendingAppointment> {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
-        stream: TFirebaseApi.user.doc(FirebaseAuth.instance.currentUser!.uid).collection('appotiment').snapshots(),
+        stream: TFirebaseApi.user.doc(FirebaseAuth.instance.currentUser!.uid).collection('appotiment').orderBy("placeDate",descending: true).snapshots(),
         builder: (context , snapshot) {
           if(snapshot.connectionState == ConnectionState.waiting){
             Center(
@@ -64,9 +64,11 @@ class _PendingAppointmentState extends State<PendingAppointment> {
               DateTime dateTime = firebaseTimestamp.toDate();
               String formattedTime = DateFormat('hh:mm a').format(dateTime);
               String formattedDate = DateFormat('yyyy-MM-dd').format(dateTime);
-              return snapshot.data?.docs[index]['appotimentStatus'] == 'pinding' ?  AppointmentButton(
+              return snapshot.data?.docs[index]['appotimentStatus'] == 'pinding' ?
+              AppointmentButton(
                 days: formattedDate,
                 time: formattedTime.toString(),
+                bgColor: snapshot.data!.docs[index]['appotimentId'] == widget.appotimentId ? Colors.blue.shade100 : Colors.white,
                 icon: Iconsax.close_circle,
                 isCustomer: snapshot.data!.docs[index].data().containsKey('isCustomer') ? snapshot.data!.docs[index]['isCustomer'] : false,
                 pendingAppointement: true,

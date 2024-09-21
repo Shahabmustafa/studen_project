@@ -6,10 +6,10 @@ import 'package:local_service_finder/utils/api/firebase/firebase_api.dart';
 import 'package:local_service_finder/utils/constant/colors.dart';
 import 'package:local_service_finder/view/customer/drawer/appointment/widget/appointment_button.dart';
 
-import '../../../../viewmodel/appotiment/appotiment_view_model.dart';
-
 class AcceptAppointment extends StatefulWidget {
-  const AcceptAppointment({Key? key}) : super(key: key);
+  AcceptAppointment({this.appotimentId,Key? key}) : super(key: key);
+
+  String? appotimentId;
 
   @override
   _AcceptAppointmentState createState() => _AcceptAppointmentState();
@@ -36,17 +36,14 @@ class _AcceptAppointmentState extends State<AcceptAppointment> {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
-      stream: TFirebaseApi.user
-          .doc(FirebaseAuth.instance.currentUser!.uid)
-          .collection('appotiment')
-          .snapshots(),
+      stream: TFirebaseApi.user.doc(FirebaseAuth.instance.currentUser!.uid).collection('appotiment').orderBy("placeDate",descending: true).snapshots(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Center(
               child: CircularProgressIndicator(color: TColors.primaryColor));
         }
         if (snapshot.hasError) {
-          return Center(
+          return const Center(
               child: Column(children: [
                 Text('Error'),
                 CircularProgressIndicator(color: Colors.red)
@@ -54,39 +51,27 @@ class _AcceptAppointmentState extends State<AcceptAppointment> {
         }
 
         if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
-          return Center(
+          return const Center(
               child: Text('No appointments found.',
                   style: TextStyle(fontSize: 18)));
         }
-
         return ListView.builder(
           itemCount: snapshot.data!.docs.length,
           itemBuilder: (context, index) {
-            var placeDate = snapshot.data!.docs[index]["appotimentDate"]
-            as Timestamp;
-            var showTime = placeDate.toDate();
             Timestamp firebaseTimestamp =
             snapshot.data!.docs[index]['appotimentDate'] as Timestamp;
             DateTime dateTime = firebaseTimestamp.toDate();
             String formattedTime = DateFormat('hh:mm a').format(dateTime);
             String formattedDate = DateFormat('yyyy-MM-dd').format(dateTime);
             String timeLeft = _formatTimeLeft(dateTime);
-
-            // Log the time left and check the condition for scheduling notification
             print('Time left for appointment: $timeLeft');
-
-            // Schedule notification if there is exactly 1 hour left
             final minutesLeft = dateTime.difference(DateTime.now()).inMinutes;
             print('Minutes left: $minutesLeft');
-            // if (minutesLeft <= 60 && minutesLeft >= 59) {
-            //   print('Scheduling notification for appointment at: $dateTime');
-            //   _scheduleNotification(dateTime, index); // Use a unique ID for each notification
-            // }
-
             return snapshot.data!.docs[index]['appotimentStatus'] == 'accepted' ?
             AppointmentButton(
               days: formattedDate,
               time: formattedTime,
+              bgColor: snapshot.data!.docs[index]['appotimentId'] == widget.appotimentId ? Colors.blue.shade100 : Colors.white,
               icon: null,
               isCustomer: snapshot.data!.docs[index].data().containsKey('isCustomer') ? snapshot.data!.docs[index]['isCustomer'] : false,
               pendingAppointement: false,

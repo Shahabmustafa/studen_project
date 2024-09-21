@@ -4,6 +4,8 @@ import 'package:local_service_finder/view/authentication/login/widget/login_form
 import 'package:local_service_finder/view/authentication/login/widget/remember_me.dart';
 import 'package:local_service_finder/view/authentication/signup/signup_view.dart';
 
+import '../forget/forgetpassword_view.dart';
+
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
 
@@ -40,9 +42,24 @@ class LoginScreen extends StatelessWidget {
                 height: 20,
               ),
         
-              /// forget password and remember me
-              const RememberMe(),
-
+              /// forget password
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  GestureDetector(
+                    onTap: (){
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => const ForgetPassword()));
+                    },
+                    child: const Text(
+                      "Forget Password",
+                      style: TextStyle(
+                          fontWeight: FontWeight.w700,
+                          fontSize: 16
+                      ),
+                    ),
+                  )
+                ],
+              ),
               const SizedBox(
                 height: 20,
               ),

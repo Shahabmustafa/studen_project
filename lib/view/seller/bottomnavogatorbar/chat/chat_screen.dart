@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:local_service_finder/utils/helper/helper.dart';
 import 'package:local_service_finder/viewmodel/message/message_viewmodel.dart';
 
 import '../../../../common/bubble_message.dart';
@@ -115,7 +116,7 @@ class _ChatScreenState extends State<ChatScreen>
               stream: FirebaseFirestore.instance.collection("users").
               doc(widget.otherId).collection("chat").
               doc(FirebaseAuth.instance.currentUser!.uid).
-              collection("messages").snapshots(),
+              collection("messages").orderBy("sentTime",descending: false).snapshots(),
               builder: (context,snapshot){
                 if(snapshot.hasData){
                   return ListView.builder(
@@ -165,15 +166,15 @@ class _ChatScreenState extends State<ChatScreen>
                   ),
                  IconButton(
                    onPressed: ()async{
-                     await MessageViewModel.addMessage(
-                       content: sendMessage.text,
-                       receiverId: widget.otherId.toString(),
-                     );
-                     await notificationService.sendNotification(
-                       body: sendMessage.text,
-                       senderId: FirebaseAuth.instance.currentUser!.uid,
-                     );
-                     sendMessage.clear();
+                    if(sendMessage.text.isEmpty){
+                      THelper.toastMessage("Add Message");
+                    }else{
+                      await MessageViewModel.addMessage(
+                        content: sendMessage.text,
+                        receiverId: widget.otherId.toString(),
+                      );
+                      sendMessage.clear();
+                    }
                    },
                    icon:  const Icon(Icons.near_me),
                  )
