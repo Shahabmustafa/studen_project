@@ -293,6 +293,7 @@ class _CategoriesSellerProfileState extends State<CategoriesSellerProfile> {
                               children: [
                                 Container(
                                   height: 40,
+                                  padding: EdgeInsets.only(left: 10),
                                   child: Text(
                                     "Days Scheduler",
                                     style: GoogleFonts.poppins(

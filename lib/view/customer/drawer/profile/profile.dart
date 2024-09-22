@@ -200,15 +200,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           title: Text(
                             "Id",
                             style: GoogleFonts.poppins(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600,
+                              fontSize: 14,
+                              fontWeight: FontWeight.w500,
                             ),
                           ),
                           trailing: Text(
                             data["userId"],
                             style: GoogleFonts.poppins(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600,
+                              fontSize: 14,
+                              fontWeight: FontWeight.w500,
                             ),
                           ),
                         ),
@@ -216,15 +216,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           title: Text(
                             "Email",
                             style: GoogleFonts.poppins(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600,
+                              fontSize: 14,
+                              fontWeight: FontWeight.w500,
                             ),
                           ),
                           trailing: Text(
                             data["email"],
                             style: GoogleFonts.poppins(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600,
+                              fontSize: 14,
+                              fontWeight: FontWeight.w500,
                             ),
                           ),
                         ),
@@ -232,15 +232,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           title: Text(
                             "Create Account",
                             style: GoogleFonts.poppins(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600,
+                              fontSize: 14,
+                              fontWeight: FontWeight.w500,
                             ),
                           ),
                           trailing: Text(
                             formattedDate,
                             style: GoogleFonts.poppins(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600,
+                              fontSize: 14,
+                              fontWeight: FontWeight.w500,
                             ),
                           ),
                         ),

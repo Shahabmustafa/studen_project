@@ -170,7 +170,7 @@ class _SellerFormScreenState extends State<SellerFormScreen> {
                           loading: controller.loading,
                           height: 60,
                           onTap: (){
-                            if(selectService == null && timeSchedule  == null && daySchedule == null && phoneNumber.text.isEmpty && cnicNumber.text.isEmpty && experience.text.isEmpty && about.text.isEmpty){
+                            if(selectService == null || timeSchedule  == null || daySchedule == null || phoneNumber.text.isEmpty || cnicNumber.text.isEmpty || experience.text.isEmpty || about.text.isEmpty){
                               THelper.errorMessage(context, "Please Fill All TextField & DropDown");
                             }else{
                               controller.sellerForm(

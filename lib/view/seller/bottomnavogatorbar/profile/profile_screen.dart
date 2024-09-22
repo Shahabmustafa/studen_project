@@ -463,7 +463,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             title: Text(
                               "Logout",
                               style: GoogleFonts.poppins(
-                                fontSize: 15,
+                                fontSize: 12,
                                 fontWeight: FontWeight.w600,
                               ),
                             ),
