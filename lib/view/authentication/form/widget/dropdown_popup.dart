@@ -29,8 +29,18 @@ class CustomMultiSelectDropDown extends StatelessWidget {
       maxItems: maxItems,
       disabledOptions: disabledOptions,
       selectionType: SelectionType.multi,
-      selectedOptionTextColor: TColors.primaryColor,
-      chipConfig: const ChipConfig(wrapType: WrapType.wrap),
+      selectedOptionTextColor: TColors.white, // Change the text color of selected items to white
+      chipConfig: ChipConfig(
+        wrapType: WrapType.wrap,
+        backgroundColor: TColors.primaryColor, // Set the background color of the selected chips
+        labelStyle: GoogleFonts.poppins( // Style for the chip text
+          fontSize: 14,
+          fontWeight: FontWeight.w500,
+          color: TColors.white, // Set the chip text color to white
+        ),
+        // borderRadius: BorderRadius.circular(8), // Set the chip border radius
+        deleteIconColor: TColors.white, // Change the delete icon color inside the chip
+      ),
       dropdownHeight: dropdownHeight,
       hint: hint,
       borderColor: TColors.primaryColor,
@@ -46,8 +56,10 @@ class CustomMultiSelectDropDown extends StatelessWidget {
         fontWeight: FontWeight.w500,
         color: TColors.black,
       ),
-      selectedOptionIcon: Icon(Icons.check_circle,color: TColors.primaryColor,),
-
+      selectedOptionIcon: Icon(
+        Icons.check_circle,
+        color: TColors.primaryColor, // Icon color for selected options
+      ),
     );
   }
 }

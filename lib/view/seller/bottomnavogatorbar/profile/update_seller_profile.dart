@@ -12,6 +12,7 @@ import 'package:local_service_finder/viewmodel/user/seller_form_viewmodel.dart';
 import 'package:multi_dropdown/models/value_item.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../utils/constant/colors.dart';
 import '../../../authentication/form/widget/dropdown_popup.dart';
 
 class UpdateSellerProfile extends StatefulWidget {
@@ -34,6 +35,23 @@ class _UpdateSellerProfileState extends State<UpdateSellerProfile> {
   TextEditingController userName = TextEditingController();
   List<dynamic> daySchedule = [];
   List<dynamic> timeSchedule = [];
+
+  List<String> skills = [
+    "Computer and Mobile Repair",
+    "Dentist",
+    "Doctor",
+    "Lawyer",
+    "Mobile App Developer",
+    "Property Dealer",
+    "Professional Office Consultant",
+    "Referral Service",
+    "Restaurant Delivery Service",
+    "Software Engineering",
+    "Teacher",
+    "Web Developer",
+  ];
+
+  String? selectSkill;
 
 
   @override
@@ -92,10 +110,10 @@ class _UpdateSellerProfileState extends State<UpdateSellerProfile> {
                     ),
                     TextFormField(
                       controller: phoneNumber,
-                      keyboardType: TextInputType.phone,
+                      keyboardType: TextInputType.number,
                       maxLength: 11,
                       validator: (value){
-                        return phoneNumber.text.isEmpty ? "Please Enter Your Phone Number" : phoneNumber.text.length < 13 ? "Add 11 Digits" : null;
+                        return phoneNumber.text.isEmpty ? "Please Enter Your Phone Number" : phoneNumber.text.length < 11 ? "Add 11 Digits" : null;
                       },
                       decoration: const InputDecoration(
                         hintText: "Phone Number",
@@ -118,7 +136,36 @@ class _UpdateSellerProfileState extends State<UpdateSellerProfile> {
                     const SizedBox(
                       height: 10,
                     ),
-                    SkillDropDown(),
+                    Container(
+                      height: 60,
+                      width: double.infinity,
+                      padding: EdgeInsets.only(top: 5),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        border: Border.all(
+                          color: Colors.grey,
+                        ),
+                      ),
+                      child: DropdownButton<String>(
+                        dropdownColor: TColors.white,
+                        padding: EdgeInsets.symmetric(horizontal: 10),
+                        hint: Text("Select Service"),
+                        iconEnabledColor: TColors.primaryColor,
+                        value: selectSkill,
+                        isExpanded: true,
+                        items: skills.map((String skill) {
+                          return DropdownMenuItem<String>(
+                            value: skill,
+                            child: Text(skill),
+                          );
+                        }).toList(),
+                        onChanged: (String? newValue) {
+                          setState(() {
+                            selectSkill = newValue;  // Ensure the value is updated correctly
+                          });
+                        },
+                      ),
+                    ),
                     const SizedBox(
                       height: 10,
                     ),
@@ -212,7 +259,7 @@ class _UpdateSellerProfileState extends State<UpdateSellerProfile> {
                                 "userName" : userName.text,
                                 "phoneNumber" : phoneNumber.text,
                                 "cnicNumber" : cnicNumber.text,
-                                "selectService" : provider.selectSkill.toString(),
+                                "selectService" : selectSkill.toString(),
                                 "experience" : experience.text,
                                 "about" : about.text,
                                 "timeSchedule" : timeSchedule,

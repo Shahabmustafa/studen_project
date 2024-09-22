@@ -56,14 +56,20 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                   return ListView.builder(
                     itemCount: snapshot.data!.docs.length,
                     itemBuilder: (context, index) {
-                      var userDoc = snapshot.data!.docs[index];
+                      var userDoc = snapshot.data!.docs[index].data() as Map<String, dynamic>;
+
+                      // Check for the existence of the field "selectService"
+                      String serviceText = userDoc.containsKey("selectService") ? userDoc["selectService"] : "Service not specified";
+
                       return UserCard(
-                        userName: userDoc["userName"],
-                        imageUrl: userDoc["profileImage"],
-                        location: userDoc["location"],
-                        serviceText: userDoc["selectService"],
-                        likes: userDoc["likes"].length.toString(),
-                        icon: userDoc["likes"].contains(FirebaseAuth.instance.currentUser!.uid) ? Icons.favorite : Icons.favorite_border,
+                        userName: userDoc["userName"] ?? "Unknown",
+                        imageUrl: userDoc["profileImage"] ?? "",
+                        location: userDoc["location"] ?? "Unknown location",
+                        serviceText: serviceText, // Use the safe serviceText value
+                        likes: userDoc.containsKey("likes") ? userDoc["likes"].length.toString() : "0",
+                        icon: userDoc["likes"]?.contains(FirebaseAuth.instance.currentUser!.uid) == true
+                            ? Icons.favorite
+                            : Icons.favorite_border,
                         onTap: () {
                           Navigator.push(
                             context,
@@ -72,7 +78,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                             ),
                           );
                           FirebaseFirestore.instance.collection('users').doc(userDoc["userId"]).update({
-                            "messageList" : FieldValue.arrayUnion([FirebaseAuth.instance.currentUser!.uid]),
+                            "messageList": FieldValue.arrayUnion([FirebaseAuth.instance.currentUser!.uid]),
                           });
                         },
                         onPressed: () {
@@ -81,6 +87,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                       );
                     },
                   );
+
                 },
               ),
             )

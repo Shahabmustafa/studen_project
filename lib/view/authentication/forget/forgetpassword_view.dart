@@ -48,7 +48,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                 Text(
                   "Oop! Forget your password",
                   style: GoogleFonts.poppins(
-                    fontSize: 20,
+                    fontSize: 20 ,
                     fontWeight: FontWeight.bold,
                   ),
                 ),

@@ -11,6 +11,7 @@ import 'package:local_service_finder/view/authentication/signup/widget/usertype_
 import 'package:local_service_finder/viewmodel/authentication/authentication_viewmodel.dart';
 import 'package:provider/provider.dart';
 
+import '../../../utils/constant/colors.dart';
 import '../login/widget/button_button.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -38,6 +39,108 @@ class _SignUpScreenState extends State<SignUpScreen> {
   ValueNotifier<bool> _obscureConfirmPassword = ValueNotifier<bool>(true);
 
   GlobalKey<FormState> _key = GlobalKey<FormState>();
+
+  List<String> city = [
+    "Karachi",
+    "Lahore",
+    "Islamabad",
+    "Rawalpindi",
+    "Faisalabad",
+    "Multan",
+    "Peshawar",
+    "Quetta",
+    "Gujranwala",
+    "Sialkot",
+    "Hyderabad",
+    "Bahawalpur",
+    "Sargodha",
+    "Sukkur",
+    "Larkana",
+    "Sheikhupura",
+    "Mirpur Khas",
+    "Rahim Yar Khan",
+    "Gujrat",
+    "Mardan",
+    "Kasur",
+    "Mingora",
+    "Dera Ghazi Khan",
+    "Nawabshah",
+    "Sahiwal",
+    "Okara",
+    "Wah",
+    "Dera Ismail Khan",
+    "Chiniot",
+    "Kamoke",
+    "Sadiqabad",
+    "Burewala",
+    "Jacobabad",
+    "Muzaffargarh",
+    "Muridke",
+    "Jhelum",
+    "Shikarpur",
+    "Hafizabad",
+    "Kohat",
+    "Khanewal",
+    "Dadu",
+    "Gojra",
+    "Mandi Bahauddin",
+    "Tando Allahyar",
+    "Daska",
+    "Khairpur",
+    "Chishtian",
+    "Attock",
+    "Vehari",
+    "Nowshera",
+    "Jalalpur",
+    "Mianwali",
+    "Nankana Sahib",
+    "Kot Addu",
+    "Bhakkar",
+    "Toba Tek Singh",
+    "Shakargarh",
+    "Khuzdar",
+    "Charsadda",
+    "Qadirabad",
+    "Chichawatni",
+    "Jaranwala",
+    'Gujranwala Cantonment',
+    "Mansehra",
+    "Kamalia",
+    "Umerkot",
+    "Kotli",
+    "Bannu",
+    "Loralai",
+    "Dera Murad Jamali",
+    "Shahr Sultan",
+    "Gwadar",
+    "Turbat",
+    "Hangu",
+    "Timargara",
+    "Ghotki",
+    "Sibi",
+    "Jampur",
+    "Kambar",
+    "Badin",
+    "Thatta",
+    "Chakwal",
+    "Khushab",
+    "Kasur",
+    "Mian Channu",
+    "Samundri",
+    "Pasrur",
+    "Shujabad",
+    "Rajanpur",
+    "Mandi Bahauddin",
+    "Kot Radha Kishan",
+    "Dijkot",
+    "Talagang",
+    "Tando Adam",
+    "Khairpur Nathan Shah",
+    "Kabirwala",
+    "Tank",
+  ];
+
+  String? selectCity;
 
 
 
@@ -206,7 +309,36 @@ class _SignUpScreenState extends State<SignUpScreen> {
               const SizedBox(
                 height: 15,
               ),
-              SelectCityDropDown(),
+              Container(
+                height: 60,
+                width: double.infinity,
+                padding: EdgeInsets.only(top: 5),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all(
+                    color: TColors.primaryColor,
+                  ),
+                ),
+                child: DropdownButton(
+                  dropdownColor: TColors.white,
+                  padding: EdgeInsets.symmetric(horizontal: 10),
+                  hint: Text("Select City"),
+                  iconEnabledColor: TColors.primaryColor,
+                  value: selectCity,
+                  isExpanded: true,
+                  items: city.map((String cityName){
+                    return DropdownMenuItem<String>(
+                      value: cityName,
+                      child: Text(cityName),
+                    );
+                  }).toList(),
+                  onChanged: (String? value){
+                    setState(() {
+                      selectCity = value;
+                    });
+                  },
+                ),
+              ),
               const SizedBox(
                 height: 30,
               ),
@@ -225,7 +357,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                          email.text,
                          password.text,
                          provider.type.toString(),
-                         provider.selectCity.toString(),
+                         selectCity.toString(),
                        );
                      }
                     },

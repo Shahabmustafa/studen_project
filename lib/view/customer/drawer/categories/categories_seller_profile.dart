@@ -166,7 +166,7 @@ class _CategoriesSellerProfileState extends State<CategoriesSellerProfile> {
                                 ),
                               ),
                               subtitle: Text(
-                                data["about"],
+                                data["about"] ?? "Null",
                                 style: GoogleFonts.poppins(
                                   fontSize: 12,
                                   fontWeight: FontWeight.w600,
@@ -184,7 +184,7 @@ class _CategoriesSellerProfileState extends State<CategoriesSellerProfile> {
                                 ),
                               ),
                               trailing: Text(
-                                data["email"],
+                                data["email"] ?? "Null",
                                 style: GoogleFonts.poppins(
                                   fontSize: 12,
                                   fontWeight: FontWeight.w600,
@@ -202,7 +202,7 @@ class _CategoriesSellerProfileState extends State<CategoriesSellerProfile> {
                                 ),
                               ),
                               trailing: Text(
-                                data["phoneNumber"],
+                                data["phoneNumber"] ?? "Null",
                                 style: GoogleFonts.poppins(
                                   fontSize: 12,
                                   fontWeight: FontWeight.w600,
@@ -220,7 +220,7 @@ class _CategoriesSellerProfileState extends State<CategoriesSellerProfile> {
                                 ),
                               ),
                               trailing: Text(
-                                data["cnicNumber"],
+                                data["cnicNumber"] ?? "Null",
                                 style: GoogleFonts.poppins(
                                   fontSize: 12,
                                   fontWeight: FontWeight.w600,
@@ -238,7 +238,7 @@ class _CategoriesSellerProfileState extends State<CategoriesSellerProfile> {
                                 ),
                               ),
                               trailing: Text(
-                                data["experience"],
+                                data["experience"] ?? "Null",
                                 style: GoogleFonts.poppins(
                                   fontSize: 12,
                                   fontWeight: FontWeight.w600,
@@ -256,7 +256,7 @@ class _CategoriesSellerProfileState extends State<CategoriesSellerProfile> {
                                 ),
                               ),
                               trailing: Text(
-                                data["location"],
+                                data["location"] ?? "Null",
                                 style: GoogleFonts.poppins(
                                   fontSize: 12,
                                   fontWeight: FontWeight.w600,
@@ -276,7 +276,7 @@ class _CategoriesSellerProfileState extends State<CategoriesSellerProfile> {
                               trailing: Text(
                                 (data["timeSchedule"] != null && data["timeSchedule"].isNotEmpty)
                                     ? data["timeSchedule"][0]
-                                    : "Null", // Check if the list is not empty before accessing the first element
+                                    : 'No time schedule available',  // Default message if null or empty
                                 style: GoogleFonts.poppins(
                                   fontSize: 12,
                                   fontWeight: FontWeight.w600,
@@ -311,11 +311,13 @@ class _CategoriesSellerProfileState extends State<CategoriesSellerProfile> {
                           Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 10),
                             child: Wrap(
-                                spacing: MediaQuery.sizeOf(context).width * 0.07,
-                                runSpacing: MediaQuery.sizeOf(context).width * 0.04,
-                                runAlignment: WrapAlignment.spaceBetween,
-                                alignment: WrapAlignment.center,
-                                children: List.generate(data["daySchedule"].length, (index) => Container(
+                              spacing: MediaQuery.sizeOf(context).width * 0.07,
+                              runSpacing: MediaQuery.sizeOf(context).width * 0.04,
+                              runAlignment: WrapAlignment.spaceBetween,
+                              alignment: WrapAlignment.center,
+                              children: List.generate(
+                                (data["daySchedule"] != null ? data["daySchedule"].length : 0),  // Check if null
+                                    (index) => Container(
                                   height: 30,
                                   width: 100,
                                   decoration: BoxDecoration(
@@ -324,14 +326,15 @@ class _CategoriesSellerProfileState extends State<CategoriesSellerProfile> {
                                   ),
                                   child: Center(
                                     child: Text(
-                                      "${data["daySchedule"][index]}",
+                                      data["daySchedule"]?[index] ?? "No Data",  // Fallback if null
                                       style: GoogleFonts.poppins(
                                         fontSize: 12,
                                         fontWeight: FontWeight.w600,
                                       ),
                                     ),
                                   ),
-                                ))
+                                ),
+                              ),
                             ),
                           ),
                         ],
