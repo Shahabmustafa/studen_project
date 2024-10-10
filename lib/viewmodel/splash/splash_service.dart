@@ -13,8 +13,8 @@ class SplashService{
   void checkUserType(BuildContext context) async {
 
     if (FirebaseAuth.instance.currentUser == null) {
-      Timer(Duration(seconds: 3), () {
-        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginScreen()),);
+      Timer(const Duration(seconds: 3), () {
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const LoginScreen()),);
       });
     } else {
       // User is signed in, fetch user type
@@ -27,23 +27,23 @@ class SplashService{
         String userType = userDoc['type'];
         bool userForm = userDoc['form'];
         if (userType == 'Seller') {
-         Timer(Duration(seconds: 3), () {
+         Timer(const Duration(seconds: 3), () {
            Navigator.pushReplacement(
              context,
-             MaterialPageRoute(builder: (context) => userForm ? BottomNavigatorBarScreen() : SellerFormScreen()),
+             MaterialPageRoute(builder: (context) => userForm ? const BottomNavigatorBarScreen() : const SellerFormScreen()),
            );
          });
         } else if(userType == "Customer"){
-          Timer(Duration(seconds: 3), () {
+          Timer(const Duration(seconds: 3), () {
             Navigator.pushReplacement(
               context,
-              MaterialPageRoute(builder: (context) => MapScreen()),
+              MaterialPageRoute(builder: (context) => const MapScreen()),
             );
           });
         }
       } else {
-        Timer(Duration(seconds: 3), () {
-          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginScreen()),);
+        Timer(const Duration(seconds: 3), () {
+          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const LoginScreen()),);
         });
       }
     }

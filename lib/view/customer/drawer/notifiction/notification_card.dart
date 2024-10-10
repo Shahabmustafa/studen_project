@@ -8,7 +8,7 @@ class NotificationCardScreen extends StatelessWidget {
   final String? appotimentStatus;
   final Timestamp? appotimentDate;
   final bool? isRead;
-  NotificationCardScreen({super.key, required this.senderOrReciverId, this.appotimentStatus, this.appotimentDate,this.isRead});
+  const NotificationCardScreen({super.key, required this.senderOrReciverId, this.appotimentStatus, this.appotimentDate,this.isRead});
 
   @override
   Widget build(BuildContext context) {

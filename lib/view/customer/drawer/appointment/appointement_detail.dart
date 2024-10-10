@@ -15,7 +15,7 @@ class _AppointementDetailState extends State<AppointementDetail> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Appointement Detail"),
+        title: const Text("Appointement Detail"),
       ),
     );
   }

@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:local_service_finder/utils/api/firebase/firebase_api.dart';
@@ -7,8 +8,6 @@ import 'package:local_service_finder/utils/constant/colors.dart';
 import 'package:local_service_finder/utils/helper/helper.dart';
 
 class AppotimentViewModel {
-
-  final _auth = FirebaseAuth.instance;
 
   /// place appotiment
   void placeAppotiment(
@@ -54,7 +53,9 @@ class AppotimentViewModel {
         });
       });
     } catch (error) {
-      print("error whiel placing appotiment >>> $error");
+      if (kDebugMode) {
+        print("error whiel placing appotiment >>> $error");
+      }
     }
   }
 
@@ -71,7 +72,9 @@ class AppotimentViewModel {
         THelper.successMessage(context, "Appotimet Accepted");
       });
     }catch(error){
-      print('Error while accepting appotiment from AppotimentViewModel $error');
+      if (kDebugMode) {
+        print('Error while accepting appotiment from AppotimentViewModel $error');
+      }
     }
   }
 
@@ -87,7 +90,9 @@ class AppotimentViewModel {
         THelper.successMessage(context, "Appotimet declined");
       });
     }catch(error){
-      print('Error while accepting appotiment from AppotimentViewModel $error');
+      if (kDebugMode) {
+        print('Error while accepting appotiment from AppotimentViewModel $error');
+      }
     }
   }
 
@@ -98,15 +103,15 @@ class AppotimentViewModel {
     return showDialog(context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text("Rate My Work"),
+            title: const Text("Rate My Work"),
             content: RatingBar.builder(
                 initialRating:1.5,
                 direction: Axis.horizontal,
                 allowHalfRating: true,
                 itemCount: 5,
                 glowColor: Colors.white,
-                itemPadding: EdgeInsets.symmetric(horizontal: 4),
-                itemBuilder: (context,_) => Icon(Icons.star,color: Colors.yellow,),
+                itemPadding: const EdgeInsets.symmetric(horizontal: 4),
+                itemBuilder: (context,_) => const Icon(Icons.star,color: Colors.yellow,),
                 onRatingUpdate: (value) {
                   raatingValue = value;
                 }),
@@ -118,25 +123,25 @@ class AppotimentViewModel {
                     onPressed: (){
                       Navigator.pop(context);
                     },
-                    child: Text("Not Now",style: TextStyle(color: Colors.white),),
                     style: TextButton.styleFrom(
                         backgroundColor: TColors.primaryColor,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10)
                         )
                     ),
+                    child: const Text("Not Now",style: TextStyle(color: Colors.white),),
                   ),
                   TextButton(
                     onPressed: (){
                       saveCustomerRating(context, sellerId, raatingValue,appointmentId);
                     },
-                    child: Text("Submit",style: TextStyle(color: Colors.white),),
                     style: TextButton.styleFrom(
                         backgroundColor: TColors.primaryColor,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10)
                         )
                     ),
+                    child: const Text("Submit",style: TextStyle(color: Colors.white),),
                   ),
                 ],
               ),
@@ -173,7 +178,9 @@ class AppotimentViewModel {
         Navigator.pop(context);
       }
     } catch (error) {
-      print("Error while saving customer rating: $error");
+      if (kDebugMode) {
+        print("Error while saving customer rating: $error");
+      }
     }
   }
 

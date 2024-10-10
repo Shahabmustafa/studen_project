@@ -13,7 +13,7 @@ class ChatUsersListScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Messaging List'),
+        title: const Text('Messaging List'),
         automaticallyImplyLeading: false,
       ),
       body: StreamBuilder(
@@ -69,7 +69,7 @@ class ChatUsersListScreen extends StatelessWidget {
                               ),
                             ],
                           ),
-                          title: Text(data["userName"],style: TextStyle(fontSize: 18,fontWeight: FontWeight.w700),),
+                          title: Text(data["userName"],style: const TextStyle(fontSize: 18,fontWeight: FontWeight.w700),),
                           subtitle: Text(data["type"],style: TextStyle(fontSize: 14,fontWeight: FontWeight.w400,color: TColors.gray),),
                           trailing: IconButton(
                             onPressed: ()async{
@@ -80,12 +80,12 @@ class ChatUsersListScreen extends StatelessWidget {
                               doc(data["userId"]).collection("chat").
                               doc(FirebaseAuth.instance.currentUser!.uid).delete();
                             },
-                            icon: Icon(Icons.delete),
+                            icon: const Icon(Icons.delete),
                           ),
                         ),
                       );
                     }else{
-                      return Center(child: CircularProgressIndicator());
+                      return const Center(child: CircularProgressIndicator());
                     }
                   },
                 );

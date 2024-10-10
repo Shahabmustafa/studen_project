@@ -29,7 +29,7 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
             ],
           ),
         ),
-        drawer: DrawerScreen(),
+        drawer: const DrawerScreen(),
         body: TabBarView(
           children: [
             AcceptAppointment(appotimentId: widget.appotimentId,),

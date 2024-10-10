@@ -41,6 +41,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
       print('Error fetching user type: $e');
     }
   }
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -98,7 +99,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                             borderRadius: BorderRadius.circular(100)
                           ),
                         ) :
-                        SizedBox(),
+                        const SizedBox(),
                       ],
                     ),
                   );

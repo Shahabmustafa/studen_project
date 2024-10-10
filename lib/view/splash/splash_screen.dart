@@ -22,6 +22,7 @@ class _SplashScreenState extends State<SplashScreen> {
     /// jab wo seller ho to seller screen pa jaye ga
     splashService.checkUserType(context);
   }
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(

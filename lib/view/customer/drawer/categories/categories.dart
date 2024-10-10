@@ -25,7 +25,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
       appBar: AppBar(
         title: const Text("Categories"),
       ),
-      drawer: DrawerScreen(),
+      drawer: const DrawerScreen(),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10.0),
         child: Column(
@@ -51,7 +51,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                 stream: getUserStream(controller.selectCity, controller.selectSkill),
                 builder: (context, snapshot) {
                   if (!snapshot.hasData) {
-                    return Center(child: CircularProgressIndicator());
+                    return const Center(child: CircularProgressIndicator());
                   }
                   return ListView.builder(
                     itemCount: snapshot.data!.docs.length,

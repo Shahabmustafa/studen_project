@@ -8,7 +8,7 @@ import 'package:provider/provider.dart';
 import '../../../../common/button/custom_button.dart';
 
 class LoginForm extends StatefulWidget {
-  LoginForm({
+  const LoginForm({
     super.key,
   });
 
@@ -19,9 +19,9 @@ class LoginForm extends StatefulWidget {
 class _LoginFormState extends State<LoginForm> {
   TextEditingController email = TextEditingController();
   TextEditingController password = TextEditingController();
-  ValueNotifier<bool> _obscurePassword = ValueNotifier<bool>(true);
+  final ValueNotifier<bool> _obscurePassword = ValueNotifier<bool>(true);
 
-  GlobalKey<FormState> _key = GlobalKey<FormState>();
+  final GlobalKey<FormState> _key = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +42,7 @@ class _LoginFormState extends State<LoginForm> {
             },
             decoration: InputDecoration(
               hintText: "Email",
-              hintFadeDuration: Duration(seconds: 1),
+              hintFadeDuration: const Duration(seconds: 1),
               prefixIcon: const Icon(CupertinoIcons.mail),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10),
@@ -68,7 +68,7 @@ class _LoginFormState extends State<LoginForm> {
                   },
                   decoration: InputDecoration(
                     hintText: "Password",
-                    hintFadeDuration: Duration(seconds: 1),
+                    hintFadeDuration: const Duration(seconds: 1),
                     prefixIcon: const Icon(Iconsax.password_check),
                     suffixIcon: GestureDetector(
                       onTap: (){

@@ -4,9 +4,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:local_service_finder/common/button/custom_button.dart';
-import 'package:local_service_finder/utils/helper/helper.dart';
 import 'package:local_service_finder/utils/helper/provider_helper.dart';
-import 'package:local_service_finder/view/authentication/signup/widget/select_city_dropdown.dart';
 import 'package:local_service_finder/view/authentication/signup/widget/usertype_dropdown.dart';
 import 'package:local_service_finder/viewmodel/authentication/authentication_viewmodel.dart';
 import 'package:provider/provider.dart';
@@ -15,7 +13,7 @@ import '../../../utils/constant/colors.dart';
 import '../login/widget/button_button.dart';
 
 class SignUpScreen extends StatefulWidget {
-  SignUpScreen({super.key});
+  const SignUpScreen({super.key});
 
   @override
   State<SignUpScreen> createState() => _SignUpScreenState();
@@ -35,10 +33,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   late Position _currentPosition;
 
-  ValueNotifier<bool> _obscurePassword = ValueNotifier<bool>(true);
-  ValueNotifier<bool> _obscureConfirmPassword = ValueNotifier<bool>(true);
+  final ValueNotifier<bool> _obscurePassword = ValueNotifier<bool>(true);
+  final ValueNotifier<bool> _obscureConfirmPassword = ValueNotifier<bool>(true);
 
-  GlobalKey<FormState> _key = GlobalKey<FormState>();
+  final GlobalKey<FormState> _key = GlobalKey<FormState>();
 
   List<String> city = [
     "Karachi",
@@ -149,12 +147,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
     // TODO: implement initState
     super.initState();
   }
+  @override
   Widget build(BuildContext context) {
     final tProvider = Provider.of<AuthenticationViewModel>(context);
     return Scaffold(
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
-        physics: ScrollPhysics(),
+        physics: const ScrollPhysics(),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10),
           child: Column(
@@ -224,6 +223,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                      validator: (value){
                        return value!.isEmpty ? 'Please Enter Your Email' : null;
                      },
+                     keyboardType: TextInputType.emailAddress,
                      decoration: InputDecoration(
                        hintText: "Email",
                        prefixIcon: const Icon(CupertinoIcons.mail),
@@ -265,7 +265,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                        );
                      },
                    ),
-                   SizedBox(
+                   const SizedBox(
                      height: 15,
                    ),
                    ValueListenableBuilder(
@@ -305,14 +305,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
               const SizedBox(
                 height: 15,
               ),
-              UserTypeDropDown(),
+              const UserTypeDropDown(),
               const SizedBox(
                 height: 15,
               ),
               Container(
                 height: 60,
                 width: double.infinity,
-                padding: EdgeInsets.only(top: 5),
+                padding: const EdgeInsets.only(top: 5),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                   border: Border.all(
@@ -321,8 +321,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 ),
                 child: DropdownButton(
                   dropdownColor: TColors.white,
-                  padding: EdgeInsets.symmetric(horizontal: 10),
-                  hint: Text("Select City"),
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  hint: const Text("Select City"),
                   iconEnabledColor: TColors.primaryColor,
                   value: selectCity,
                   isExpanded: true,

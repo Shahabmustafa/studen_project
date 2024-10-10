@@ -24,24 +24,18 @@ class TTheme{
     ),
     timePickerTheme: TimePickerThemeData(
       backgroundColor: Colors.white,  // White background color of the TimePicker
-      hourMinuteTextColor: MaterialStateColor.resolveWith((states) =>
-      Colors.black  // Text color for the hour and minute (both selected and unselected)
-      ),
       hourMinuteShape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(8),
         side: BorderSide(color: TColors.primaryColor, width: 2),
       ), // Shape of the hour and minute display
-      dayPeriodTextColor: MaterialStateColor.resolveWith((states) =>
-      Colors.black  // AM/PM text color (both selected and unselected)
-      ),
       dayPeriodShape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(8),
         side: BorderSide(color: TColors.primaryColor, width: 2),
       ), // Shape of the AM/PM display
       dialHandColor: Colors.blueAccent,  // Color of the dial hand
       dialBackgroundColor: Colors.white,  // White background color of the dial
-      hourMinuteTextStyle: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),  // Text style of hour and minute
-      dayPeriodTextStyle: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),  // Text style of AM/PM
+      hourMinuteTextStyle: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),  // Text style of hour and minute
+      dayPeriodTextStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),  // Text style of AM/PM
       helpTextStyle: TextStyle(fontSize: 14, color: Colors.grey.shade800),  // Style of the help text (e.g., "SELECT TIME")
       entryModeIconColor: Colors.blueAccent,  // Color of the entry mode icon
     ),
@@ -50,16 +44,7 @@ class TTheme{
       surfaceTintColor: Colors.blueAccent,  // Tint color for surfaces
       headerBackgroundColor: Colors.blueAccent,  // Background color of the header (where the month/year is displayed)
       headerForegroundColor: Colors.white,  // Text color of the header
-      dayForegroundColor: MaterialStateColor.resolveWith((states) =>
-      states.contains(MaterialState.selected) ? Colors.white : Colors.grey.shade800
-      ), // Day text color when selected and unselected
-      dayBackgroundColor: MaterialStateColor.resolveWith((states) =>
-      states.contains(MaterialState.selected) ? Colors.blueAccent : Colors.transparent
-      ), // Day background color when selected
-      yearBackgroundColor: MaterialStateColor.resolveWith((states) =>
-      states.contains(MaterialState.selected) ? Colors.blueAccent : Colors.transparent
-      ), // Year background color when selected
-      yearStyle: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),  // Text style for years
+      yearStyle: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),  // Text style for years
       weekdayStyle: TextStyle(color: Colors.grey.shade800),  // Style for weekday labels (Mon, Tue, etc.)
       dayStyle: TextStyle(fontSize: 16, color: Colors.grey.shade800),  // General style for day numbers
     ),

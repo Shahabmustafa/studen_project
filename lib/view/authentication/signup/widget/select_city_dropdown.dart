@@ -119,7 +119,7 @@ class SelectCityDropDown extends StatelessWidget {
         return Container(
           height: 60,
           width: double.infinity,
-          padding: EdgeInsets.only(top: 5),
+          padding: const EdgeInsets.only(top: 5),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
             border: Border.all(
@@ -128,8 +128,8 @@ class SelectCityDropDown extends StatelessWidget {
           ),
           child: DropdownButton(
             dropdownColor: TColors.white,
-            padding: EdgeInsets.symmetric(horizontal: 10),
-            hint: Text("Select City"),
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            hint: const Text("Select City"),
             iconEnabledColor: TColors.primaryColor,
             value: provider.selectCity,
             isExpanded: true,

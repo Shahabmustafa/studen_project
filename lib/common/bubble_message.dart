@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class MessageBubble extends StatelessWidget {
-  MessageBubble({Key? key,
+  const MessageBubble({super.key,
     required this.content,
     required this.isMe,
     required this.timeStep,
-  }) : super(key: key);
-  String content;
-  bool isMe;
-  String timeStep;
+  });
+  final String content;
+  final bool isMe;
+  final String timeStep;
 
 
   @override
@@ -17,20 +17,20 @@ class MessageBubble extends StatelessWidget {
     return Align(
       alignment: isMe ? Alignment.topRight : Alignment.topLeft,
       child: Container(
-        margin: EdgeInsets.only(
+        margin: const EdgeInsets.only(
           top: 10,
           right: 10,
           left: 10,
         ),
-        padding: EdgeInsets.all(10),
+        padding: const EdgeInsets.all(10),
         decoration: BoxDecoration(
           borderRadius: isMe ?
-          BorderRadius.only(
+          const BorderRadius.only(
             topLeft: Radius.circular(30),
             bottomLeft: Radius.circular(30),
             bottomRight: Radius.circular(30),
           ) :
-          BorderRadius.only(
+          const BorderRadius.only(
             topRight: Radius.circular(30),
             bottomLeft: Radius.circular(30),
             bottomRight: Radius.circular(30),

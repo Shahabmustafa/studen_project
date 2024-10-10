@@ -24,7 +24,7 @@ class _MapScreenState extends State<MapScreen> with WidgetsBindingObserver {
   CustomInfoWindowController customInfoWindowController = CustomInfoWindowController();
 
 
-  Set<Marker> _markers = {};
+  final Set<Marker> _markers = {};
 
   void fetchLocations() async {
     FirebaseFirestore firestore = FirebaseFirestore.instance;
@@ -65,7 +65,7 @@ class _MapScreenState extends State<MapScreen> with WidgetsBindingObserver {
                     ),
                     title: Text(data["userName"]),
                     subtitle: Text(data["selectService"]),
-                    trailing: Icon(Icons.arrow_forward_ios_sharp),
+                    trailing: const Icon(Icons.arrow_forward_ios_sharp),
                     onTap: () {
                       Navigator.push(context, MaterialPageRoute(builder: (context) => CategoriesSellerProfile(userId: doc.id)));
                     },
@@ -107,17 +107,18 @@ class _MapScreenState extends State<MapScreen> with WidgetsBindingObserver {
     super.initState();
     fetchLocations();
   }
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      drawer: DrawerScreen(),
+      drawer: const DrawerScreen(),
       body: Stack(
         children: [
           GoogleMap(
             mapType: MapType.normal,
             myLocationEnabled: true,
             markers: Set<Marker>.of(_markers),
-            initialCameraPosition: CameraPosition(
+            initialCameraPosition: const CameraPosition(
               target: LatLng(
                 32.968600,
                 70.630035,

@@ -7,7 +7,7 @@ import 'package:local_service_finder/utils/helper/provider_helper.dart';
 import 'package:provider/provider.dart';
 
 class UserTypeDropDown extends StatelessWidget {
-  UserTypeDropDown({
+  const UserTypeDropDown({
     super.key,
   });
 
@@ -19,7 +19,7 @@ class UserTypeDropDown extends StatelessWidget {
         return Container(
           height: 60,
           width: double.infinity,
-          padding: EdgeInsets.only(top: 5),
+          padding: const EdgeInsets.only(top: 5),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
             border: Border.all(

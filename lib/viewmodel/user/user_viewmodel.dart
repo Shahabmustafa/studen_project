@@ -37,7 +37,7 @@ class UserViewModel with ChangeNotifier{
       }else{
         Navigator.push(context, MaterialPageRoute(builder: (context) => const MapScreen()));
       }
-    }on FirebaseException catch(e){
+    }on FirebaseException {
 
     }
   }
@@ -46,7 +46,7 @@ class UserViewModel with ChangeNotifier{
 
   Future<void> getUsers() async {
     final res = await FirebaseFirestore.instance.collection("users").get();
-    userModels = res.docs.map((doc) => UserModel.fromJson(doc.data()!)).toList();
+    userModels = res.docs.map((doc) => UserModel.fromJson(doc.data())).toList();
     notifyListeners();
   }
 

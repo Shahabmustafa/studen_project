@@ -27,7 +27,7 @@ class ProfileUpdateViewModel extends ChangeNotifier {
   void uploadImage(BuildContext context) async {
     firebase_storage.Reference storageRef = firebase_storage
         .FirebaseStorage.instance
-        .ref('profileImage' + FirebaseAuth.instance.currentUser!.uid);
+        .ref('profileImage${FirebaseAuth.instance.currentUser!.uid}');
     firebase_storage.UploadTask uploadTask =
         storageRef.putFile(File(image!.path).absolute);
     await Future.value(uploadTask);
@@ -57,9 +57,9 @@ class ProfileUpdateViewModel extends ChangeNotifier {
           .collection('specificRating')
           .get()
           .then((value) {
-        value.docs.forEach((ratingDoc) {
+        for (var ratingDoc in value.docs) {
           ratings.add(ratingDoc['rating value']); // Extract the rating value
-        });
+        }
       });
 
       if (ratings.isNotEmpty) {

@@ -68,8 +68,8 @@ class _AppointmentButtonState extends State<AppointmentButton> {
             child: GestureDetector(
               onTap: (){
                 widget.pendingAppointement == false ?
-                widget.isCustomer == true ? AppotimentViewModel().ratingBarAlert(context, widget.userId.toString(),widget.appointmentId.toString()) : SizedBox() :
-                SizedBox();
+                widget.isCustomer == true ? AppotimentViewModel().ratingBarAlert(context, widget.userId.toString(),widget.appointmentId.toString()) : const SizedBox() :
+                const SizedBox();
               },
               child: Card(
                 child: Container(
@@ -131,7 +131,7 @@ class _AppointmentButtonState extends State<AppointmentButton> {
                               ),
                             ],
                           ),
-                          widget.pendingAppointement ? SizedBox() : Text(
+                          widget.pendingAppointement ? const SizedBox() : Text(
                             "${widget.placeDate}",
                             style: GoogleFonts.poppins(
                               fontSize: 13,

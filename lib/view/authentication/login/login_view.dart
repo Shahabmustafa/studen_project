@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:local_service_finder/view/authentication/login/widget/button_button.dart';
 import 'package:local_service_finder/view/authentication/login/widget/login_form.dart';
-import 'package:local_service_finder/view/authentication/login/widget/remember_me.dart';
 import 'package:local_service_finder/view/authentication/signup/signup_view.dart';
 
 import '../forget/forgetpassword_view.dart';
@@ -36,7 +35,7 @@ class LoginScreen extends StatelessWidget {
               ),
         
               /// Form
-              LoginForm(),
+              const LoginForm(),
 
               const SizedBox(
                 height: 20,
@@ -69,7 +68,7 @@ class LoginScreen extends StatelessWidget {
                 title: "Don't have any account?",
                 subTitle: "SignUp",
                 onPressed: (){
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => SignUpScreen()));
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => const SignUpScreen()));
                 },
               ),
             ],

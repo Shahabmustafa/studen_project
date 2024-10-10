@@ -46,9 +46,9 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Favourite"),
+        title: const Text("Favourite"),
       ),
-      drawer: DrawerScreen(),
+      drawer: const DrawerScreen(),
       body: StreamBuilder(
         stream: FirebaseFirestore.instance.collection('users').snapshots(),
         builder: (context , snapshot) {
@@ -71,7 +71,7 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
             );
           }
 
-        return AuthenticationViewModel().loading ? CircularProgressIndicator() : likesIds.isEmpty ? Center(child: Text('No Favourite sellers',style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),)) : ListView.builder(
+        return AuthenticationViewModel().loading ? const CircularProgressIndicator() : likesIds.isEmpty ? const Center(child: Text('No Favourite sellers',style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),)) : ListView.builder(
           itemCount: snapshot.data!.docs.length,
             itemBuilder: (context , index) {
               return likesIds.contains(snapshot.data?.docs[index].id) ? UserCard(
@@ -93,7 +93,7 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
                     context: context,
                     builder: (context){
                       return AlertDialog(
-                        title: Text("Do You Want Un Favourite"),
+                        title: const Text("Do You Want Un Favourite"),
                         content: Column(
                           mainAxisSize: MainAxisSize.min,
                           children: [
@@ -106,13 +106,13 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
                                     Navigator.pop(context);
                                     Navigator.pop(context);
                                   },
-                                  child: Text("UnFavourite"),
+                                  child: const Text("UnFavourite"),
                                 ),
                                 ElevatedButton(
                                   onPressed: (){
                                      Navigator.pop(context);
                                   },
-                                  child: Text("Cancel"),
+                                  child: const Text("Cancel"),
                                 )
                               ],
                             ),
@@ -122,7 +122,7 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
                     },
                   );
                 },
-              ) : SizedBox();
+              ) : const SizedBox();
         });
       },)
     );

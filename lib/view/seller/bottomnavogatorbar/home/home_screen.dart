@@ -40,6 +40,7 @@ class _HomeScreenState extends State<HomeScreen>  with WidgetsBindingObserver{
     super.initState();
     stateChange(true);
   }
+  @override
   Widget build(BuildContext context) {
     return DefaultTabController(
       length: 2,
@@ -48,7 +49,7 @@ class _HomeScreenState extends State<HomeScreen>  with WidgetsBindingObserver{
         appBar: AppBar(
           title: const Text("Appointments"),
           automaticallyImplyLeading: false,
-          bottom: TabBar(
+          bottom: const TabBar(
             tabs: [
               Tab(
                 icon: Text("Accepted"),

@@ -19,7 +19,7 @@ import 'package:provider/provider.dart';
 import '../../../../viewmodel/profileupdate/profile_update_viewmodel.dart';
 
 class ProfileScreen extends StatefulWidget {
-  ProfileScreen({super.key});
+  const ProfileScreen({super.key});
 
   @override
   State<ProfileScreen> createState() => _ProfileScreenState();
@@ -67,19 +67,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
     super.initState();
     callRatingMethods();
   }
+  @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
     final height = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
-        title: Text("Profile"),
+        title: const Text("Profile"),
         actions: [
           IconButton(
             onPressed: () {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => UpdateSellerProfile(),
+                  builder: (context) => const UpdateSellerProfile(),
                 ),
               );
             },
@@ -135,10 +136,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                       mainAxisSize: MainAxisSize.min,
                                       children: [
                                         ListTile(
-                                          leading: Icon(Icons.camera_alt),
+                                          leading: const Icon(Icons.camera_alt),
                                           title: const Text("Camera"),
                                           trailing:
-                                              Icon(Icons.arrow_forward_ios),
+                                              const Icon(Icons.arrow_forward_ios),
                                           onTap: () {
                                             value.pickImage(
                                                 context, ImageSource.camera);
@@ -146,9 +147,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                         ),
                                         ListTile(
                                           leading: const Icon(Icons.photo),
-                                          title: Text("Gallery"),
+                                          title: const Text("Gallery"),
                                           trailing:
-                                              Icon(Icons.arrow_forward_ios),
+                                              const Icon(Icons.arrow_forward_ios),
                                           onTap: () {
                                             value.pickImage(
                                                 context, ImageSource.gallery);
@@ -199,9 +200,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       allowHalfRating: true,
                       itemCount: 5,
                       ignoreGestures: true,
-                      itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
+                      itemPadding: const EdgeInsets.symmetric(horizontal: 4.0),
                       itemSize: 30,
-                      itemBuilder: (context, _) => Icon(
+                      itemBuilder: (context, _) => const Icon(
                         Icons.star,
                         color: Colors.amber,
                         size: 10,
@@ -211,7 +212,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                     Text(
                       '${_parseRatingValue().toStringAsFixed(1)}/5 (${_parseReviewCount()} reviews)',
-                      style: TextStyle(fontSize: 16,fontWeight: FontWeight.w600),
+                      style: const TextStyle(fontSize: 16,fontWeight: FontWeight.w600),
                     ),
                   ],
                 ),
@@ -398,13 +399,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 fontWeight: FontWeight.w600,
                               ),
                             ),
-                            trailing: Icon(Icons.edit, color: Colors.black54),
+                            trailing: const Icon(Icons.edit, color: Colors.black54),
                             onTap: () {
                               showDialog(
                                 context: context,
                                 builder: (context) {
                                   return AlertDialog(
-                                    title: Text(
+                                    title: const Text(
                                         "You Want Convert Account To Customer"),
                                     content: Row(
                                       mainAxisAlignment:
@@ -444,7 +445,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                   context,
                                                   MaterialPageRoute(
                                                       builder: (context) =>
-                                                          MapScreen()));
+                                                          const MapScreen()));
                                             });
                                           },
                                         ),
@@ -467,7 +468,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 fontWeight: FontWeight.w600,
                               ),
                             ),
-                            trailing: Icon(Icons.logout, color: Colors.black54),
+                            trailing: const Icon(Icons.logout, color: Colors.black54),
                             onTap: () {
                               FirebaseAuth.instance.signOut();
                               FirebaseFirestore.instance.collection("users").doc(FirebaseAuth.instance.currentUser!.uid).update({
@@ -476,7 +477,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               Navigator.pushAndRemoveUntil(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => LoginScreen()),
+                                      builder: (context) => const LoginScreen()),
                                   (route) => false);
                             },
                           ),
@@ -488,7 +489,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ],
             );
           } else {
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           }
         },
       ),

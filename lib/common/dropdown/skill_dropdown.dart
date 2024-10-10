@@ -12,7 +12,7 @@ class SkillDropDown extends StatelessWidget {
     skills.sort();
   }
 
-  List<String> skills = [
+  final List<String> skills = [
     "All",
     "Computer and Mobile Repair",
     "Dentist",
@@ -35,7 +35,7 @@ class SkillDropDown extends StatelessWidget {
         return Container(
           height: 60,
           width: double.infinity,
-          padding: EdgeInsets.only(top: 5),
+          padding: const EdgeInsets.only(top: 5),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
             border: Border.all(
@@ -44,8 +44,8 @@ class SkillDropDown extends StatelessWidget {
           ),
           child: DropdownButton(
             dropdownColor: TColors.white,
-            padding: EdgeInsets.symmetric(horizontal: 10),
-            hint: Text("Select Service"),
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            hint: const Text("Select Service"),
             iconEnabledColor: TColors.primaryColor,
             value: provider.selectSkill,
             isExpanded: true,

@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 
 class TProviderHelper with ChangeNotifier{
 
@@ -22,7 +22,9 @@ class TProviderHelper with ChangeNotifier{
 
   selectType(String value){
     _type = value;
-    print(_type);
+    if (kDebugMode) {
+      print(_type);
+    }
     notifyListeners();
   }
 

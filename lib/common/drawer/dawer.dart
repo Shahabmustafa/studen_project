@@ -21,7 +21,7 @@ import 'package:provider/provider.dart';
 import '../../utils/constant/colors.dart';
 
 class DrawerScreen extends StatefulWidget {
-  DrawerScreen({super.key});
+  const DrawerScreen({super.key});
 
   @override
   State<DrawerScreen> createState() => _DrawerScreenState();
@@ -99,7 +99,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
                   onTap: (){
                     Navigator.pop(context);
                     Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(builder: (context) => MapScreen()),
+                      MaterialPageRoute(builder: (context) => const MapScreen()),
                     );
                     // Navigator.push(context, MaterialPageRoute(builder: (context) => const MapScreen()));
                   },
@@ -111,7 +111,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
                     // Navigator.push(context, MaterialPageRoute(builder: (context) => CategoriesScreen()));
                     Navigator.pop(context);
                     Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(builder: (context) => CategoriesScreen()),
+                      MaterialPageRoute(builder: (context) => const CategoriesScreen()),
                     );
                   },
                 ),
@@ -171,12 +171,12 @@ class _DrawerScreenState extends State<DrawerScreen> {
                   },
                 ),
                 ExpansionTile(
-                  leading: Icon(Iconsax.setting),
-                  title: Text("Setting"),
+                  leading: const Icon(Iconsax.setting),
+                  title: const Text("Setting"),
                   children: [
                     ListTile(
-                      leading: Icon(Iconsax.password_check),
-                      title: Text("Password Change"),
+                      leading: const Icon(Iconsax.password_check),
+                      title: const Text("Password Change"),
                       onTap: (){
                         showDialog(
                           context: context,
@@ -184,18 +184,18 @@ class _DrawerScreenState extends State<DrawerScreen> {
                             return Consumer<AuthenticationViewModel>(
                               builder: (context,value,child){
                                 return AlertDialog(
-                                  title: Text("Change Password"),
+                                  title: const Text("Change Password"),
                                   content: Column(
                                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                                     mainAxisSize: MainAxisSize.min,
                                     children: [
                                       TextFormField(
                                         controller: changePassword,
-                                        decoration: InputDecoration(
+                                        decoration: const InputDecoration(
                                             hintText: "Change Passowrd"
                                         ),
                                       ),
-                                      SizedBox(
+                                      const SizedBox(
                                         height: 10,
                                       ),
                                       Row(
@@ -205,7 +205,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
                                             onPressed: (){
                                               Navigator.pop(context);
                                             },
-                                            child: Text("Cancel"),
+                                            child: const Text("Cancel"),
                                           ),
                                           ElevatedButton(
                                             onPressed: (){
@@ -215,7 +215,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
                                                 value.passwordChange(context, changePassword.text.trim());
                                               }
                                             },
-                                            child: Text("Change"),
+                                            child: const Text("Change"),
                                           ),
                                         ],
                                       ),
@@ -228,25 +228,25 @@ class _DrawerScreenState extends State<DrawerScreen> {
                         );
                       },
                     ),
-                    ListTile(
+                    const ListTile(
                       leading: Icon(Iconsax.document),
                       title: Text("About us"),
                     ),
-                    ListTile(
+                    const ListTile(
                       leading: Icon(Icons.help_outline),
                       title: Text("Help"),
                     ),
                   ],
                 ),
                 ListTile(
-                  leading: Icon(Iconsax.convert),
-                  title: Text("Switch to Seller"),
+                  leading: const Icon(Iconsax.convert),
+                  title: const Text("Switch to Seller"),
                   onTap: (){
                     showDialog(
                       context: context,
                       builder: (context){
                         return AlertDialog(
-                          title: Text("You Want Convert Account To Seller"),
+                          title: const Text("You Want Convert Account To Seller"),
                           content: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
@@ -266,7 +266,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
                                 color: Colors.green,
                                 onTap: (){
                                   Navigator.pop(context);
-                                  Navigator.push(context, MaterialPageRoute(builder: (context) => SellerFormScreen()));
+                                  Navigator.push(context, MaterialPageRoute(builder: (context) => const SellerFormScreen()));
                                 },
                               ),
                             ],
@@ -277,8 +277,8 @@ class _DrawerScreenState extends State<DrawerScreen> {
                   },
                 ),
                 ListTile(
-                  leading: Icon(Iconsax.logout_1),
-                  title: Text("Logout"),
+                  leading: const Icon(Iconsax.logout_1),
+                  title: const Text("Logout"),
                   onTap: ()async{
                     await FirebaseFirestore.instance.collection("users").doc(FirebaseAuth.instance.currentUser!.uid).update({
                       "status" : false,
@@ -286,7 +286,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
                     FirebaseAuth.instance.signOut();
                     Navigator.pushAndRemoveUntil(
                       context,
-                      MaterialPageRoute(builder: (context) => LoginScreen()),
+                      MaterialPageRoute(builder: (context) => const LoginScreen()),
                           (Route<dynamic> route) => false,
                     );
                   },
@@ -294,7 +294,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
               ],
             );
           }else{
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           }
         },
       )

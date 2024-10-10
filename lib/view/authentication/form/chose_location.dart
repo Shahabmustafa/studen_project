@@ -20,10 +20,10 @@ class _ChoseLocationScreenState extends State<ChoseLocationScreen> {
   @override
   void initState() {
     super.initState();
-    _markerPosition = LatLng(32.968600, 70.630035); // Default position
+    _markerPosition = const LatLng(32.968600, 70.630035); // Default position
     _markers.add(
       Marker(
-        markerId: MarkerId('default_marker'),
+        markerId: const MarkerId('default_marker'),
         position: _markerPosition,
       ),
     );
@@ -35,7 +35,7 @@ class _ChoseLocationScreenState extends State<ChoseLocationScreen> {
       _markers.clear(); // Clear existing markers
       _markers.add(
         Marker(
-          markerId: MarkerId('default_marker'),
+          markerId: const MarkerId('default_marker'),
           position: _markerPosition,
         ),
       );
@@ -47,11 +47,11 @@ class _ChoseLocationScreenState extends State<ChoseLocationScreen> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Marker Position'),
+          title: const Text('Marker Position'),
           content: Text('Latitude: ${_markerPosition.latitude}\nLongitude: ${_markerPosition.longitude}'),
           actions: [
             TextButton(
-              child: Text('OK'),
+              child: const Text('OK'),
               onPressed: () {
                 Navigator.of(context).pop();
               },
@@ -93,7 +93,7 @@ class _ChoseLocationScreenState extends State<ChoseLocationScreen> {
                   "longitude" : _markerPosition.longitude,
                   "latitude" : _markerPosition.latitude,
                 });
-                await Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => BottomNavigatorBarScreen()));
+                await Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const BottomNavigatorBarScreen()));
               },
             ),
           ),

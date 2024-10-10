@@ -28,7 +28,7 @@ class App extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'Local Service Finder',
         theme: TTheme.lightTheme,
-        home: SplashScreen(),
+        home: const SplashScreen(),
       ),
     );
   }

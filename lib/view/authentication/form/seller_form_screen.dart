@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:local_service_finder/common/button/custom_button.dart';
-import 'package:local_service_finder/common/dropdown/skill_dropdown.dart';
 import 'package:local_service_finder/utils/helper/helper.dart';
 import 'package:local_service_finder/utils/helper/provider_helper.dart';
 import 'package:local_service_finder/utils/validation/validation.dart';
@@ -83,7 +82,7 @@ class _SellerFormScreenState extends State<SellerFormScreen> {
                   children: [
                     TextFormField(
                       controller: phoneNumber,
-                      keyboardType: TextInputType.phone,
+                      keyboardType: TextInputType.number,
                       validator: (value){
                         return TValidator.validatePhoneNumber(value);
                       },
@@ -112,7 +111,7 @@ class _SellerFormScreenState extends State<SellerFormScreen> {
                     Container(
                       height: 60,
                       width: double.infinity,
-                      padding: EdgeInsets.only(top: 5),
+                      padding: const EdgeInsets.only(top: 5),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
                         border: Border.all(
@@ -121,8 +120,8 @@ class _SellerFormScreenState extends State<SellerFormScreen> {
                       ),
                       child: DropdownButton<String>(
                         dropdownColor: TColors.white,
-                        padding: EdgeInsets.symmetric(horizontal: 10),
-                        hint: Text("Select Service"),
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                        hint: const Text("Select Service"),
                         iconEnabledColor: TColors.primaryColor,
                         value: selectSkill,
                         isExpanded: true,
@@ -174,7 +173,7 @@ class _SellerFormScreenState extends State<SellerFormScreen> {
                         ValueItem(label: 'Saturday', value: '6'),
                         ValueItem(label: 'Sunday', value: '7'),
                       ],
-                      disabledOptions: [],
+                      disabledOptions: const [],
                       maxItems: 7,
 
                     ),
@@ -184,7 +183,7 @@ class _SellerFormScreenState extends State<SellerFormScreen> {
                     CustomMultiSelectDropDown(
                       hint: "Time Schedule",
                       maxItems: 3,
-                      disabledOptions: [],
+                      disabledOptions: const [],
                       dropdownHeight: 200,
                       onOptionSelected: (options){
                         timeSchedule = options;

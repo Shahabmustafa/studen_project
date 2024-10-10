@@ -32,7 +32,7 @@ class THelper{
             ),
           ),
         ),
-        duration: Duration(seconds: 2),
+        duration: const Duration(seconds: 2),
         backgroundColor: TColors.white,
         dismissDirection: DismissDirection.horizontal,
         elevation: 5,
@@ -69,7 +69,7 @@ class THelper{
             ),
           ),
         ),
-        duration: Duration(seconds: 2),
+        duration: const Duration(seconds: 2),
         backgroundColor: TColors.white,
         dismissDirection: DismissDirection.horizontal,
         elevation: 5,
@@ -89,12 +89,12 @@ class THelper{
           shape: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
           ),
-          title: Text("Pick Image",),
+          title: const Text("Pick Image",),
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               ListTile(
-                leading: Icon(Iconsax.camera),
+                leading: const Icon(Iconsax.camera),
                 title: Text(
                   "Camera",
                   style: GoogleFonts.poppins(
@@ -112,7 +112,7 @@ class THelper{
                 onTap: onTapForCamera,
               ),
               ListTile(
-                leading: Icon(Iconsax.gallery),
+                leading: const Icon(Iconsax.gallery),
                 title: Text(
                   "Gallery",
                   style: GoogleFonts.poppins(

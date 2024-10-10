@@ -2,13 +2,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:local_service_finder/utils/constant/colors.dart';
 
 class ImageAvatar extends StatelessWidget {
-  ImageAvatar({
+  const ImageAvatar({
     super.key,
     required this.onTap,
     required this.image,
   });
-  VoidCallback onTap;
-  ImageProvider<Object> image;
+  final VoidCallback onTap;
+  final ImageProvider<Object> image;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(

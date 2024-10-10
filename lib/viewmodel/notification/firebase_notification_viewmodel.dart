@@ -50,7 +50,7 @@ class NotificationService{
       priority: Priority.max,
     );
 
-    final iOSDetails = DarwinNotificationDetails(
+    const iOSDetails = DarwinNotificationDetails(
       presentAlert: true,
       presentBadge: true,
     );

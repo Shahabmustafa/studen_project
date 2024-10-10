@@ -42,6 +42,7 @@ class _BottomNavigatorBarScreenState extends State<BottomNavigatorBarScreen> {
       });
     });
   }
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
 
@@ -51,7 +52,7 @@ class _BottomNavigatorBarScreenState extends State<BottomNavigatorBarScreen> {
           HomeScreen(appotimentId: widget.appotimentId,initialIndex: widget.initialIndex,),
           const ChatUsersListScreen(),
           const NotificationScreen(),
-          ProfileScreen(),
+          const ProfileScreen(),
         ],
       ),
 
@@ -66,28 +67,28 @@ class _BottomNavigatorBarScreenState extends State<BottomNavigatorBarScreen> {
         type: BottomNavigationBarType.fixed,
 
         items: [
-          BottomNavigationBarItem(icon: Icon(Icons.home),label: 'Home'),
-          BottomNavigationBarItem(icon: Icon(Icons.chat),label: 'Chat'),
+          const BottomNavigationBarItem(icon: Icon(Icons.home),label: 'Home'),
+          const BottomNavigationBarItem(icon: Icon(Icons.chat),label: 'Chat'),
           BottomNavigationBarItem(
             icon: Stack(
               children: [
-                Icon(Icons.notifications),
+                const Icon(Icons.notifications),
                 if (unreadCount > 0)
                   Positioned(
                     right: 0,
                     child: Container(
-                      padding: EdgeInsets.all(1),
+                      padding: const EdgeInsets.all(1),
                       decoration: BoxDecoration(
                         color: Colors.red,
                         borderRadius: BorderRadius.circular(6),
                       ),
-                      constraints: BoxConstraints(
+                      constraints: const BoxConstraints(
                         minWidth: 12,
                         minHeight: 12,
                       ),
                       child: Text(
                         '$unreadCount',
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Colors.white,
                           fontSize: 8,
                         ),
@@ -99,7 +100,7 @@ class _BottomNavigatorBarScreenState extends State<BottomNavigatorBarScreen> {
             ),
             label: 'Notification',
           ),
-          BottomNavigationBarItem(icon: Icon(Icons.account_circle),label: 'Profile'),
+          const BottomNavigationBarItem(icon: Icon(Icons.account_circle),label: 'Profile'),
         ],
       ),
     );

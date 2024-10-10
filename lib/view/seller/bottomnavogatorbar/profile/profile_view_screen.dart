@@ -15,7 +15,7 @@ class _ProfileViewScreenState extends State<ProfileViewScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Profile View"),
+        title: const Text("Profile View"),
       ),
       body: StreamBuilder(
         stream: FirebaseFirestore.instance.collection("users").doc(FirebaseAuth.instance.currentUser!.uid).snapshots(),
@@ -35,7 +35,7 @@ class _ProfileViewScreenState extends State<ProfileViewScreen> {
                     return ListView.builder(
                       itemCount: users.length,
                       itemBuilder: (context, index) {
-                        var userData = users[index].data() as Map<String, dynamic>;
+                        var userData = users[index].data();
 
                         return Card(
                           child: ListTile(
@@ -57,15 +57,15 @@ class _ProfileViewScreenState extends State<ProfileViewScreen> {
                       },
                     );
                   } else {
-                    return Center(child: Text("No users found."));
+                    return const Center(child: Text("No users found."));
                   }
                 } else {
-                  return Center(child: CircularProgressIndicator());
+                  return const Center(child: CircularProgressIndicator());
                 }
               },
             );
           } else {
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           }
         },
       ),

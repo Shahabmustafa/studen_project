@@ -56,7 +56,7 @@ class _AppointmentState extends State<Appointment> {
     // Find the closest initialDate that satisfies the selectableDayPredicate
     DateTime initialDate = DateTime.now();
     while (!validDays.contains(initialDate.weekday)) {
-      initialDate = initialDate.add(Duration(days: 1));
+      initialDate = initialDate.add(const Duration(days: 1));
     }
 
     final DateTime? pickedDate = await showDatePicker(
@@ -94,7 +94,7 @@ class _AppointmentState extends State<Appointment> {
         });
       } else {
         // Show an error message or alert if the time is not within the allowed range
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
           content: Text('Selected time is outside the allowed range.'),
         ));
       }
@@ -130,9 +130,7 @@ class _AppointmentState extends State<Appointment> {
   }
 
   String _formatDateTime(DateTime dateTime) {
-    return "${dateTime.toLocal()}".split(' ')[0] +
-        " " +
-        "${TimeOfDay(hour: dateTime.hour, minute: dateTime.minute).format(context)}";
+    return "${"${dateTime.toLocal()}".split(' ')[0]} ${TimeOfDay(hour: dateTime.hour, minute: dateTime.minute).format(context)}";
   }
 
   @override

@@ -47,11 +47,11 @@ class SellerFormViewModel extends ChangeNotifier{
       loadingIndicator(true);
       FirebaseFirestore.instance.collection("users").doc(FirebaseAuth.instance.currentUser!.uid).update(sellerForm).then((value) {
         print('??>>>>>>>>>>/////////// Seller Form Data is saved go to bottom navigator .>>>>>>>>>>>>>>>>///////');
-        Navigator.push(context,MaterialPageRoute(builder: (context) => ChoseLocationScreen()));
+        Navigator.push(context,MaterialPageRoute(builder: (context) => const ChoseLocationScreen()));
         loadingIndicator(false);
       }).onError((error, stackTrace) {
         loadingIndicator(false);
-        print('>>>>>?????>>>>>> error while updating seller account data from seller from from SellerFormViewModel ${error}');
+        print('>>>>>?????>>>>>> error while updating seller account data from seller from from SellerFormViewModel $error');
       });
       // await TFirebaseFireStoreHelper.userUpdate(sellerForm);
     }on FirebaseException catch(e){

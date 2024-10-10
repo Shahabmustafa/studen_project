@@ -30,9 +30,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
     final height = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
-        title: Text("Profile"),
+        title: const Text("Profile"),
       ),
-      drawer: DrawerScreen(),
+      drawer: const DrawerScreen(),
       body: StreamBuilder(
         stream: FirebaseFirestore.instance.collection("users").doc(FirebaseAuth.instance.currentUser!.uid).snapshots(),
         builder: (context,snapshot){
@@ -61,7 +61,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     imageUrl: data["profileImage"],
                                     progressIndicatorBuilder: (context, url, downloadProgress) =>
                                         CircularProgressIndicator(value: downloadProgress.progress),
-                                    errorWidget: (context, url, error) => Icon(Icons.error),
+                                    errorWidget: (context, url, error) => const Icon(Icons.error),
                                   )
                                       : Image.file(
                                     File(value.image!.path),
@@ -80,17 +80,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                             mainAxisSize: MainAxisSize.min,
                                             children: [
                                               ListTile(
-                                                leading: Icon(Icons.camera_alt),
-                                                title: Text("Camera"),
-                                                trailing: Icon(Icons.arrow_forward_ios),
+                                                leading: const Icon(Icons.camera_alt),
+                                                title: const Text("Camera"),
+                                                trailing: const Icon(Icons.arrow_forward_ios),
                                                 onTap: (){
                                                   value.pickImage(context, ImageSource.camera);
                                                 },
                                               ),
                                               ListTile(
-                                                leading: Icon(Icons.photo),
-                                                title: Text("Photo"),
-                                                trailing: Icon(Icons.arrow_forward_ios),
+                                                leading: const Icon(Icons.photo),
+                                                title: const Text("Photo"),
+                                                trailing: const Icon(Icons.arrow_forward_ios),
                                                 onTap: (){
                                                   value.pickImage(context, ImageSource.gallery);
                                                 },
@@ -104,7 +104,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   child: CircleAvatar(
                                     radius: 18,
                                     backgroundColor: TColors.primaryColor,
-                                    child: Icon(CupertinoIcons.camera,color: Colors.white,),
+                                    child: const Icon(CupertinoIcons.camera,color: Colors.white,),
                                   ),
                                 ),
                               ],
@@ -125,7 +125,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             fontWeight: FontWeight.w600,
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 10,
                         ),
                         IconButton(
@@ -139,11 +139,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     children: [
                                       TextFormField(
                                         controller: userName,
-                                        decoration: InputDecoration(
+                                        decoration: const InputDecoration(
                                           hintText: "Change UserName",
                                         ),
                                       ),
-                                      SizedBox(
+                                      const SizedBox(
                                         height: 20,
                                       ),
                                       Row(
@@ -156,13 +156,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                 "userName" : userName.text.trim(),
                                               }).then((value) => Navigator.pop(context));
                                             },
-                                            child: Text("update"),
+                                            child: const Text("update"),
                                           ),
                                           ElevatedButton(
                                             onPressed: (){
                                               Navigator.pop(context);
                                             },
-                                            child: Text("cancel"),
+                                            child: const Text("cancel"),
                                           )
                                         ],
                                       ),
@@ -172,7 +172,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               },
                             );
                           },
-                          icon: Icon(Iconsax.edit),
+                          icon: const Icon(Iconsax.edit),
                         )
                       ],
                     ),
@@ -251,7 +251,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ],
             );
           }else{
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           }
         },
       )

@@ -71,7 +71,7 @@ class _CategoriesSellerProfileState extends State<CategoriesSellerProfile> {
               Map<String, dynamic> data = snapshot.data!.data() as Map<String, dynamic>;
               return Column(
                 children: [
-                  SizedBox(
+                  const SizedBox(
                     height: kToolbarHeight,
                   ),
                   Expanded(
@@ -141,9 +141,9 @@ class _CategoriesSellerProfileState extends State<CategoriesSellerProfile> {
                             allowHalfRating: true,
                             itemCount: 5,
                             ignoreGestures: true,
-                            itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
+                            itemPadding: const EdgeInsets.symmetric(horizontal: 4.0),
                             itemSize: 30,
-                            itemBuilder: (context, _) => Icon(
+                            itemBuilder: (context, _) => const Icon(
                               Icons.star,
                               color: Colors.amber,
                               size: 10,
@@ -153,7 +153,7 @@ class _CategoriesSellerProfileState extends State<CategoriesSellerProfile> {
                           ),
                           Text(
                             '${_parseRatingValue().toStringAsFixed(1)}/5 (${_parseReviewCount()} reviews)',
-                            style: TextStyle(fontSize: 16,fontWeight: FontWeight.w600),
+                            style: const TextStyle(fontSize: 16,fontWeight: FontWeight.w600),
                           ),
                           Card(
                             elevation: 5,
@@ -284,7 +284,7 @@ class _CategoriesSellerProfileState extends State<CategoriesSellerProfile> {
                               ),
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 10,
                           ),
                           Padding(
@@ -293,7 +293,7 @@ class _CategoriesSellerProfileState extends State<CategoriesSellerProfile> {
                               children: [
                                 Container(
                                   height: 40,
-                                  padding: EdgeInsets.only(left: 10),
+                                  padding: const EdgeInsets.only(left: 10),
                                   child: Text(
                                     "Days Scheduler",
                                     style: GoogleFonts.poppins(
@@ -305,7 +305,7 @@ class _CategoriesSellerProfileState extends State<CategoriesSellerProfile> {
                               ],
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 10,
                           ),
                           Padding(
@@ -366,7 +366,7 @@ class _CategoriesSellerProfileState extends State<CategoriesSellerProfile> {
                             },
                           ),
                         ),
-                    SizedBox(
+                    const SizedBox(
                       width: 10,
                     ),
                     FloatingActionButton(
@@ -382,7 +382,7 @@ class _CategoriesSellerProfileState extends State<CategoriesSellerProfile> {
                         ),
                         );
                       },
-                      child: Icon(Icons.chat),
+                      child: const Icon(Icons.chat),
                     )
                   ],
                 ),
@@ -390,7 +390,7 @@ class _CategoriesSellerProfileState extends State<CategoriesSellerProfile> {
             ],
           );
         } else {
-          return Center(child: CircularProgressIndicator());
+          return const Center(child: CircularProgressIndicator());
         }
       },
     ));

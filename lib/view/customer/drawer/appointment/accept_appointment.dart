@@ -7,7 +7,7 @@ import 'package:local_service_finder/utils/constant/colors.dart';
 import 'package:local_service_finder/view/customer/drawer/appointment/widget/appointment_button.dart';
 
 class AcceptAppointment extends StatefulWidget {
-  AcceptAppointment({this.appotimentId,Key? key}) : super(key: key);
+  AcceptAppointment({this.appotimentId,super.key});
 
   String? appotimentId;
 
@@ -82,7 +82,7 @@ class _AcceptAppointmentState extends State<AcceptAppointment> {
               },
               appointmentId: snapshot.data!.docs[index].id.toString(),
             ) :
-            SizedBox();
+            const SizedBox();
           },
         );
       },

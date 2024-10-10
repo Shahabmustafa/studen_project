@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:local_service_finder/common/bottomnavigatorbar/bottom_navigator_bar.dart';
 import 'package:local_service_finder/utils/helper/helper.dart';
@@ -43,19 +44,23 @@ class AuthenticationViewModel extends ChangeNotifier{
         if (userDoc.exists) {
           String userType = userDoc['type'];
           bool userForm = userDoc['form'];
-          print(">>>>>>><<><><><type>>>>>>>>>>${userType}");
-          print(
+          if (kDebugMode) {
+            print(">>>>>>><<><><><type>>>>>>>>>>$userType");
+          }
+          if (kDebugMode) {
+            print(
               ">>>>>>><<><><><type>>>>>>>>>>${userDoc["userName"].toString()}");
+          }
           userType == "Seller" ? Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(builder: (context) =>
             userForm
-                ? BottomNavigatorBarScreen()
-                : SellerFormScreen()),
+                ? const BottomNavigatorBarScreen()
+                : const SellerFormScreen()),
                 (Route<dynamic> route) => false,
           ) :  Navigator.pushAndRemoveUntil(
             context,
-            MaterialPageRoute(builder: (context) => MapScreen()),
+            MaterialPageRoute(builder: (context) => const MapScreen()),
                 (Route<dynamic> route) => false,
           );
         }
